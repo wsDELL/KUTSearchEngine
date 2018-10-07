@@ -62,7 +62,7 @@ namespace KUTSearchEngine
                     }
                     newList[newList.Length-2] = newList[newList.Length-2].Replace(newList[1],"");
                     string[] splitAbstract = newList[newList.Length - 2].Split('.');
-                    newList[newList.Length - 1] = splitAbstract[0] + ".";
+                    newList[newList.Length - 1] = splitAbstract[1] + ".";
                     fileContent.Add(newList);
                 }
             }
@@ -121,6 +121,7 @@ namespace KUTSearchEngine
 
         private void submitButton_Click(object sender, EventArgs e)
         {
+            resultDisplaylistBox.Items.Clear();
             string infoNeed = InfoNeedInput.Text;
             myLuceneApp.CreateSearcher();
             Lucene.Net.Search.Query query = myLuceneApp.InfoParser(infoNeed);
@@ -128,7 +129,7 @@ namespace KUTSearchEngine
             Lucene.Net.Search.TopDocs result= myLuceneApp.SearchText(query);
             
             resultDisplaylistBox.Text += result.MaxScore;
-            resultDisplaylistBox.Text += "Number of results is " + result.TotalHits;
+            resultDisplaylistBox.Items.Add( "Number of results is " + result.TotalHits);
             int rank = 0;
             foreach (Lucene.Net.Search.ScoreDoc scoreDoc in result.ScoreDocs)
             {
@@ -138,10 +139,17 @@ namespace KUTSearchEngine
                 string author = doc.Get("author").ToString();
                 string bbibliographic = doc.Get("bibliographic").ToString();
                 string textAbstract = doc.Get("firstSentence").ToString();
-                resultDisplaylistBox.Text+=("title: " + title +"\n"+  " author: " + author+"\n"+ " bbibliographic: " + bbibliographic+"\n"+ textAbstract+"\n\n");
+                resultDisplaylistBox.Items.Add(scoreDoc);
+                resultDisplaylistBox.Items.Add("title:" + title.Replace(".",""));
+
+                resultDisplaylistBox.Items.Add("author: " + author.Substring(0,author.Length-1));
+                resultDisplaylistBox.Items.Add("bbibliographic:" + bbibliographic.Substring(0,bbibliographic.Length-1));
+                resultDisplaylistBox.Items.Add( textAbstract);
+                resultDisplaylistBox.Items.Add("\n\n");
                 //Lucene.Net.Search. Explanation explanation = myLuceneApp.Searcher.Explain(query, scoreDoc.Doc);
                 //resultDisplay.Text+= explanation.ToString();
                 //" text: " + myFieldValue +
+                
             }
             myLuceneApp.CleanUpSearcher();
 

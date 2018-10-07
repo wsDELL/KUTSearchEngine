@@ -75,6 +75,7 @@
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.resultDisplaylistBox = new System.Windows.Forms.ListBox();
             this.folderBrowserDialog3 = new System.Windows.Forms.FolderBrowserDialog();
+            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -139,7 +140,7 @@
             this.newToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
             this.newToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(173, 26);
             this.newToolStripMenuItem.Text = "&New";
             // 
             // openToolStripMenuItem
@@ -412,7 +413,7 @@
             // 
             // submitButton
             // 
-            this.submitButton.Location = new System.Drawing.Point(662, 74);
+            this.submitButton.Location = new System.Drawing.Point(653, 74);
             this.submitButton.Name = "submitButton";
             this.submitButton.Size = new System.Drawing.Size(85, 28);
             this.submitButton.TabIndex = 13;
@@ -432,6 +433,7 @@
             // 
             // resultDisplaylistBox
             // 
+            this.resultDisplaylistBox.AllowDrop = true;
             this.resultDisplaylistBox.FormattingEnabled = true;
             this.resultDisplaylistBox.ItemHeight = 16;
             this.resultDisplaylistBox.Location = new System.Drawing.Point(758, 32);
@@ -439,11 +441,24 @@
             this.resultDisplaylistBox.Size = new System.Drawing.Size(724, 692);
             this.resultDisplaylistBox.TabIndex = 15;
             // 
+            // linkLabel1
+            // 
+            this.linkLabel1.AutoSize = true;
+            this.linkLabel1.Location = new System.Drawing.Point(619, 160);
+            this.linkLabel1.Name = "linkLabel1";
+            this.linkLabel1.Size = new System.Drawing.Size(72, 17);
+            this.linkLabel1.TabIndex = 16;
+            this.linkLabel1.TabStop = true;
+            this.linkLabel1.Text = "linkLabel1";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScroll = true;
+            this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(1514, 754);
+            this.Controls.Add(this.linkLabel1);
             this.Controls.Add(this.resultDisplaylistBox);
             this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.submitButton);
@@ -516,6 +531,7 @@
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.ListBox resultDisplaylistBox;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog3;
+        private System.Windows.Forms.LinkLabel linkLabel1;
     }
 }
 
