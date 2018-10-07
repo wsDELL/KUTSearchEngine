@@ -75,7 +75,7 @@
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.resultDisplaylistBox = new System.Windows.Forms.ListBox();
             this.folderBrowserDialog3 = new System.Windows.Forms.FolderBrowserDialog();
-            this.Relevent_Document = new System.Windows.Forms.Label();
+            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -413,7 +413,7 @@
             // 
             // submitButton
             // 
-            this.submitButton.Location = new System.Drawing.Point(662, 74);
+            this.submitButton.Location = new System.Drawing.Point(653, 74);
             this.submitButton.Name = "submitButton";
             this.submitButton.Size = new System.Drawing.Size(85, 28);
             this.submitButton.TabIndex = 13;
@@ -433,29 +433,33 @@
             // 
             // resultDisplaylistBox
             // 
+            this.resultDisplaylistBox.AllowDrop = true;
             this.resultDisplaylistBox.FormattingEnabled = true;
             this.resultDisplaylistBox.ItemHeight = 16;
             this.resultDisplaylistBox.Location = new System.Drawing.Point(758, 32);
             this.resultDisplaylistBox.Name = "resultDisplaylistBox";
             this.resultDisplaylistBox.Size = new System.Drawing.Size(724, 692);
             this.resultDisplaylistBox.TabIndex = 15;
+            this.resultDisplaylistBox.SelectedIndexChanged += new System.EventHandler(this.resultDisplaylistBox_SelectedIndexChanged);
             // 
-            // Relevent_Document
+            // linkLabel1
             // 
-            this.Relevent_Document.AutoSize = true;
-            this.Relevent_Document.Location = new System.Drawing.Point(484, 112);
-            this.Relevent_Document.Name = "Relevent_Document";
-            this.Relevent_Document.Size = new System.Drawing.Size(139, 17);
-            this.Relevent_Document.TabIndex = 16;
-            this.Relevent_Document.Text = "Relevent Documents";
-            this.Relevent_Document.Click += new System.EventHandler(this.label6_Click);
+            this.linkLabel1.AutoSize = true;
+            this.linkLabel1.Location = new System.Drawing.Point(619, 160);
+            this.linkLabel1.Name = "linkLabel1";
+            this.linkLabel1.Size = new System.Drawing.Size(72, 17);
+            this.linkLabel1.TabIndex = 16;
+            this.linkLabel1.TabStop = true;
+            this.linkLabel1.Text = "linkLabel1";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScroll = true;
+            this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(1514, 754);
-            this.Controls.Add(this.Relevent_Document);
+            this.Controls.Add(this.linkLabel1);
             this.Controls.Add(this.resultDisplaylistBox);
             this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.submitButton);
@@ -528,7 +532,7 @@
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.ListBox resultDisplaylistBox;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog3;
-        private System.Windows.Forms.Label Relevent_Document;
+        private System.Windows.Forms.LinkLabel linkLabel1;
     }
 }
 

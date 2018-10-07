@@ -50,13 +50,14 @@ namespace KUTSearchEngine
                 if (info.Extension.ToLower() == ".txt")
                 {
                     string content = File.ReadAllText(info.FullName);
-                    string[] contents = content.Split('T', 'I', 'A', 'B', 'W');
+                    string[] delimter = { ".T", ".I", ".A", ".B", ".W" };
+                    string[] contents = content.Split(delimter,StringSplitOptions.None);
                     string[] newList = new string[6];
                     Array.Copy(contents, 1, newList, 0, 5);
-                    for (int i = 1; i < newList.Length-1; i++)
+                    for (int i = 0; i < contents.Length-1; i++)
                     {
-                        newList[i] = newList[i].Substring(1, newList[i].Length - 1);
-                        newList[i] = newList[i].Replace("\n", "").Replace("\r", " ");
+                       
+                        contents[i] = contents[i].Replace("\n", "").Replace("\r", " ");
                         
 
                     }
@@ -121,14 +122,28 @@ namespace KUTSearchEngine
 
         private void submitButton_Click(object sender, EventArgs e)
         {
+            resultDisplaylistBox.Items.Clear();
+            
             string infoNeed = InfoNeedInput.Text;
+
+            DialogResult result1 = MessageBox.Show("Invalid input!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            if(result1==DialogResult.OK)
+            {
+                
+                InfoNeedInput.Clear();
+                return;
+
+                
+
+            }
             myLuceneApp.CreateSearcher();
+         
             Lucene.Net.Search.Query query = myLuceneApp.InfoParser(infoNeed);
             queryDisplay.Text = query.ToString();
             Lucene.Net.Search.TopDocs result= myLuceneApp.SearchText(query);
             
             resultDisplaylistBox.Text += result.MaxScore;
-            resultDisplaylistBox.Text += "Number of results is " + result.TotalHits;
+            resultDisplaylistBox.Items.Add( "Number of results is " + result.TotalHits);
             int rank = 0;
             foreach (Lucene.Net.Search.ScoreDoc scoreDoc in result.ScoreDocs)
             {
@@ -138,10 +153,17 @@ namespace KUTSearchEngine
                 string author = doc.Get("author").ToString();
                 string bbibliographic = doc.Get("bibliographic").ToString();
                 string textAbstract = doc.Get("firstSentence").ToString();
-                resultDisplaylistBox.Text+=("title: " + title +"\n"+  " author: " + author+"\n"+ " bbibliographic: " + bbibliographic+"\n"+ textAbstract+"\n\n");
+                resultDisplaylistBox.Items.Add(scoreDoc);
+                resultDisplaylistBox.Items.Add("title:" + title.Replace(".",""));
+
+                resultDisplaylistBox.Items.Add("author: " + author.Substring(0,author.Length-1));
+                resultDisplaylistBox.Items.Add("bbibliographic:" + bbibliographic.Substring(0,bbibliographic.Length-1));
+                resultDisplaylistBox.Items.Add( textAbstract);
+                resultDisplaylistBox.Items.Add("\n\n");
                 //Lucene.Net.Search. Explanation explanation = myLuceneApp.Searcher.Explain(query, scoreDoc.Doc);
                 //resultDisplay.Text+= explanation.ToString();
                 //" text: " + myFieldValue +
+                
             }
             myLuceneApp.CleanUpSearcher();
 
@@ -157,7 +179,7 @@ namespace KUTSearchEngine
             
         }
 
-        private void label6_Click(object sender, EventArgs e)
+        private void resultDisplaylistBox_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }

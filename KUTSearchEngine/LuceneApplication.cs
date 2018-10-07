@@ -91,7 +91,7 @@ namespace KUTSearchEngine
         /// <param name="querytext">The text to search the index</param>
         public Query InfoParser(string infoNeed)
         {
-            System.Console.WriteLine("Searching for " + infoNeed);
+            
             infoNeed = infoNeed.ToLower();
             Query query = parser.Parse(infoNeed);
             return query;
