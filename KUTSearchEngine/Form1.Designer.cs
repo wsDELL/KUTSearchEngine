@@ -75,6 +75,7 @@
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.resultDisplaylistBox = new System.Windows.Forms.ListBox();
             this.folderBrowserDialog3 = new System.Windows.Forms.FolderBrowserDialog();
+            this.Relevent_Document = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -139,7 +140,7 @@
             this.newToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
             this.newToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(173, 26);
             this.newToolStripMenuItem.Text = "&New";
             // 
             // openToolStripMenuItem
@@ -439,11 +440,22 @@
             this.resultDisplaylistBox.Size = new System.Drawing.Size(724, 692);
             this.resultDisplaylistBox.TabIndex = 15;
             // 
+            // Relevent_Document
+            // 
+            this.Relevent_Document.AutoSize = true;
+            this.Relevent_Document.Location = new System.Drawing.Point(484, 112);
+            this.Relevent_Document.Name = "Relevent_Document";
+            this.Relevent_Document.Size = new System.Drawing.Size(139, 17);
+            this.Relevent_Document.TabIndex = 16;
+            this.Relevent_Document.Text = "Relevent Documents";
+            this.Relevent_Document.Click += new System.EventHandler(this.label6_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1514, 754);
+            this.Controls.Add(this.Relevent_Document);
             this.Controls.Add(this.resultDisplaylistBox);
             this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.submitButton);
@@ -516,6 +528,7 @@
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.ListBox resultDisplaylistBox;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog3;
+        private System.Windows.Forms.Label Relevent_Document;
     }
 }
 
