@@ -50,19 +50,20 @@ namespace KUTSearchEngine
                 if (info.Extension.ToLower() == ".txt")
                 {
                     string content = File.ReadAllText(info.FullName);
-                    string[] contents = content.Split('T', 'I', 'A', 'B', 'W');
+                    string[] delimter = { ".T", ".I", ".A", ".B", ".W" };
+                    string[] contents = content.Split(delimter,StringSplitOptions.None);
                     string[] newList = new string[6];
                     Array.Copy(contents, 1, newList, 0, 5);
-                    for (int i = 1; i < newList.Length-1; i++)
+                    for (int i = 0; i < contents.Length-1; i++)
                     {
-                        newList[i] = newList[i].Substring(1, newList[i].Length - 1);
-                        newList[i] = newList[i].Replace("\n", "").Replace("\r", " ");
+                       
+                        contents[i] = contents[i].Replace("\n", "").Replace("\r", " ");
                         
 
                     }
                     newList[newList.Length-2] = newList[newList.Length-2].Replace(newList[1],"");
                     string[] splitAbstract = newList[newList.Length - 2].Split('.');
-                    newList[newList.Length - 1] = splitAbstract[1] + ".";
+                    newList[newList.Length - 1] = splitAbstract[0] + ".";
                     fileContent.Add(newList);
                 }
             }
@@ -122,8 +123,20 @@ namespace KUTSearchEngine
         private void submitButton_Click(object sender, EventArgs e)
         {
             resultDisplaylistBox.Items.Clear();
+            
             string infoNeed = InfoNeedInput.Text;
+
+            DialogResult result1 = MessageBox.Show("Invalid input!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            if(result1==DialogResult.OK)
+            {
+                
+                InfoNeedInput.Clear();
+
+                
+
+            }
             myLuceneApp.CreateSearcher();
+         
             Lucene.Net.Search.Query query = myLuceneApp.InfoParser(infoNeed);
             queryDisplay.Text = query.ToString();
             Lucene.Net.Search.TopDocs result= myLuceneApp.SearchText(query);
