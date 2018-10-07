@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.BroweButton1 = new System.Windows.Forms.Button();
@@ -77,9 +76,7 @@
             this.resultDisplaylistBox = new System.Windows.Forms.ListBox();
             this.folderBrowserDialog3 = new System.Windows.Forms.FolderBrowserDialog();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
-            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.menuStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
             // folderBrowserDialog1
@@ -443,6 +440,7 @@
             this.resultDisplaylistBox.Name = "resultDisplaylistBox";
             this.resultDisplaylistBox.Size = new System.Drawing.Size(724, 692);
             this.resultDisplaylistBox.TabIndex = 15;
+            this.resultDisplaylistBox.SelectedIndexChanged += new System.EventHandler(this.resultDisplaylistBox_SelectedIndexChanged);
             // 
             // linkLabel1
             // 
@@ -453,10 +451,6 @@
             this.linkLabel1.TabIndex = 16;
             this.linkLabel1.TabStop = true;
             this.linkLabel1.Text = "linkLabel1";
-            // 
-            // errorProvider1
-            // 
-            this.errorProvider1.ContainerControl = this;
             // 
             // Form1
             // 
@@ -485,7 +479,6 @@
             this.Text = "Form1";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -540,7 +533,6 @@
         private System.Windows.Forms.ListBox resultDisplaylistBox;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog3;
         private System.Windows.Forms.LinkLabel linkLabel1;
-        private System.Windows.Forms.ErrorProvider errorProvider1;
     }
 }
 
