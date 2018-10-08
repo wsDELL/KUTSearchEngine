@@ -91,6 +91,10 @@
             this.bindingNavigatorSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.bindingNavigatorAddNewItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorDeleteItem = new System.Windows.Forms.ToolStripButton();
+            this.firstPage = new System.Windows.Forms.Label();
+            this.nextPage = new System.Windows.Forms.Label();
+            this.previousPage = new System.Windows.Forms.Label();
+            this.lastPage = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingNavigator1)).BeginInit();
@@ -485,7 +489,7 @@
             this.dataGridView1.Location = new System.Drawing.Point(737, 58);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(1079, 911);
+            this.dataGridView1.Size = new System.Drawing.Size(1079, 587);
             this.dataGridView1.TabIndex = 18;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
@@ -604,13 +608,57 @@
             this.bindingNavigatorDeleteItem.Size = new System.Drawing.Size(24, 24);
             this.bindingNavigatorDeleteItem.Text = "Delete";
             // 
+            // firstPage
+            // 
+            this.firstPage.AutoSize = true;
+            this.firstPage.Location = new System.Drawing.Point(1504, 652);
+            this.firstPage.Name = "firstPage";
+            this.firstPage.Size = new System.Drawing.Size(64, 17);
+            this.firstPage.TabIndex = 20;
+            this.firstPage.Text = "firstPage";
+            this.firstPage.Click += new System.EventHandler(this.firstPage_Click);
+            // 
+            // nextPage
+            // 
+            this.nextPage.AutoSize = true;
+            this.nextPage.Location = new System.Drawing.Point(1584, 652);
+            this.nextPage.Name = "nextPage";
+            this.nextPage.Size = new System.Drawing.Size(73, 17);
+            this.nextPage.TabIndex = 21;
+            this.nextPage.Text = "Next Page";
+            this.nextPage.Click += new System.EventHandler(this.nextPage_Click);
+            // 
+            // previousPage
+            // 
+            this.previousPage.AutoSize = true;
+            this.previousPage.Location = new System.Drawing.Point(1507, 695);
+            this.previousPage.Name = "previousPage";
+            this.previousPage.Size = new System.Drawing.Size(100, 17);
+            this.previousPage.TabIndex = 22;
+            this.previousPage.Text = "Previous Page";
+            this.previousPage.Click += new System.EventHandler(this.previousPage_Click);
+            // 
+            // lastPage
+            // 
+            this.lastPage.AutoSize = true;
+            this.lastPage.Location = new System.Drawing.Point(1614, 694);
+            this.lastPage.Name = "lastPage";
+            this.lastPage.Size = new System.Drawing.Size(72, 17);
+            this.lastPage.TabIndex = 23;
+            this.lastPage.Text = "Last Page";
+            this.lastPage.Click += new System.EventHandler(this.lastPage_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(1783, 1002);
+            this.ClientSize = new System.Drawing.Size(1684, 626);
+            this.Controls.Add(this.lastPage);
+            this.Controls.Add(this.previousPage);
+            this.Controls.Add(this.nextPage);
+            this.Controls.Add(this.firstPage);
             this.Controls.Add(this.bindingNavigator1);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.listView1);
@@ -707,6 +755,10 @@
         private System.Windows.Forms.ToolStripButton bindingNavigatorMoveNextItem;
         private System.Windows.Forms.ToolStripButton bindingNavigatorMoveLastItem;
         private System.Windows.Forms.ToolStripSeparator bindingNavigatorSeparator2;
+        private System.Windows.Forms.Label firstPage;
+        private System.Windows.Forms.Label nextPage;
+        private System.Windows.Forms.Label previousPage;
+        private System.Windows.Forms.Label lastPage;
     }
 }
 

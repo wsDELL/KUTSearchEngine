@@ -18,7 +18,7 @@ namespace KUTSearchEngine
         private string indexPath = "";
         private LuceneAdvancedSearchApplication myLuceneApp = new LuceneAdvancedSearchApplication();
         private DataTable dataTable = new DataTable();
-        
+        private PageDivded pageDivded = new PageDivded();
     
         
         public Form1()
@@ -136,9 +136,6 @@ namespace KUTSearchEngine
                 MessageBox.Show("Invalid input!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning); 
                 InfoNeedInput.Clear();
                 return;
-
-                
-
             }
             
             myLuceneApp.CreateSearcher();
@@ -150,8 +147,14 @@ namespace KUTSearchEngine
             resultDisplaylistBox.Text += result.MaxScore;
             resultDisplaylistBox.Items.Add( "Number of results is " + result.TotalHits);
             int rank = 0;
-            dataTable.Clear();
-            CreateDataTable();
+            pageDivded.DtSource.Clear();
+            //CreateDataTable();
+            
+            pageDivded.DtSource.Columns.Add("title");
+            pageDivded.DtSource.Columns.Add("author");
+            pageDivded.DtSource.Columns.Add("bibliographic");
+            pageDivded.DtSource.Columns.Add("firstSentence");
+
             /*
             dataGridView1.Columns.Add("title","title");
             dataGridView1.Columns.Add("author", "author");
@@ -169,7 +172,7 @@ namespace KUTSearchEngine
                 resultDisplaylistBox.Items.Add(scoreDoc);
                 string[] row = { title, author, bbibliographic, textAbstract };
 
-                dataTable.Rows.Add(row);
+                pageDivded.DtSource.Rows.Add(row);
                 
                 /*
                 resultDisplaylistBox.Items.Add("title:" + title.Replace(".",""));
@@ -183,7 +186,8 @@ namespace KUTSearchEngine
                 //" text: " + myFieldValue +
                 */
             }
-
+            pageDivded.DividedPage();
+            dataGridView1.data
 
             myLuceneApp.CleanUpSearcher();
 
@@ -227,6 +231,30 @@ namespace KUTSearchEngine
 
         }
 
+        private void firstPage_Click(object sender, EventArgs e)
+        {
+            pageDivded.currentPage = 1;
+            pageDivded.LoadPage();
+        }
+
+        private void nextPage_Click(object sender, EventArgs e)
+        {
+            pageDivded.currentPage++;
+            pageDivded.LoadPage();
+        }
+
+        private void previousPage_Click(object sender, EventArgs e)
+        {
+            pageDivded.currentPage--;
+            pageDivded.LoadPage();
+
+        }
+
+        private void lastPage_Click(object sender, EventArgs e)
+        {
+            pageDivded.currentPage = pageDivded.pageCount;
+            pageDivded.LoadPage();
+        }
     }
 
 }
