@@ -74,10 +74,8 @@
             this.label5 = new System.Windows.Forms.Label();
             this.submitButton = new System.Windows.Forms.Button();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.resultDisplaylistBox = new System.Windows.Forms.ListBox();
             this.folderBrowserDialog3 = new System.Windows.Forms.FolderBrowserDialog();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
-            this.listView1 = new System.Windows.Forms.ListView();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.bindingNavigator1 = new System.Windows.Forms.BindingNavigator(this.components);
             this.bindingNavigatorMoveFirstItem = new System.Windows.Forms.ToolStripButton();
@@ -91,10 +89,10 @@
             this.bindingNavigatorSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.bindingNavigatorAddNewItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorDeleteItem = new System.Windows.Forms.ToolStripButton();
-            this.firstPage = new System.Windows.Forms.Label();
-            this.nextPage = new System.Windows.Forms.Label();
-            this.previousPage = new System.Windows.Forms.Label();
-            this.lastPage = new System.Windows.Forms.Label();
+            this.firstPage = new System.Windows.Forms.Button();
+            this.nextPage = new System.Windows.Forms.Button();
+            this.previousPage = new System.Windows.Forms.Button();
+            this.lastPage = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingNavigator1)).BeginInit();
@@ -134,7 +132,7 @@
             this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1816, 28);
+            this.menuStrip1.Size = new System.Drawing.Size(1777, 28);
             this.menuStrip1.TabIndex = 3;
             this.menuStrip1.Text = "menuStrip1";
             this.menuStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.menuStrip1_ItemClicked);
@@ -453,17 +451,6 @@
             this.checkBox1.Text = "checkBox1";
             this.checkBox1.UseVisualStyleBackColor = true;
             // 
-            // resultDisplaylistBox
-            // 
-            this.resultDisplaylistBox.AllowDrop = true;
-            this.resultDisplaylistBox.FormattingEnabled = true;
-            this.resultDisplaylistBox.ItemHeight = 16;
-            this.resultDisplaylistBox.Location = new System.Drawing.Point(758, 32);
-            this.resultDisplaylistBox.Name = "resultDisplaylistBox";
-            this.resultDisplaylistBox.Size = new System.Drawing.Size(724, 692);
-            this.resultDisplaylistBox.TabIndex = 15;
-            this.resultDisplaylistBox.SelectedIndexChanged += new System.EventHandler(this.resultDisplaylistBox_SelectedIndexChanged);
-            // 
             // linkLabel1
             // 
             this.linkLabel1.AutoSize = true;
@@ -474,22 +461,14 @@
             this.linkLabel1.TabStop = true;
             this.linkLabel1.Text = "linkLabel1";
             // 
-            // listView1
-            // 
-            this.listView1.Location = new System.Drawing.Point(622, 458);
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(121, 97);
-            this.listView1.TabIndex = 17;
-            this.listView1.UseCompatibleStateImageBehavior = false;
-            // 
             // dataGridView1
             // 
             this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(737, 58);
+            this.dataGridView1.Location = new System.Drawing.Point(744, 74);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(1079, 587);
+            this.dataGridView1.Size = new System.Drawing.Size(982, 499);
             this.dataGridView1.TabIndex = 18;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
@@ -518,7 +497,7 @@
             this.bindingNavigator1.MovePreviousItem = this.bindingNavigatorMovePreviousItem;
             this.bindingNavigator1.Name = "bindingNavigator1";
             this.bindingNavigator1.PositionItem = this.bindingNavigatorPositionItem;
-            this.bindingNavigator1.Size = new System.Drawing.Size(1816, 27);
+            this.bindingNavigator1.Size = new System.Drawing.Size(1777, 27);
             this.bindingNavigator1.TabIndex = 19;
             this.bindingNavigator1.Text = "bindingNavigator1";
             // 
@@ -610,43 +589,43 @@
             // 
             // firstPage
             // 
-            this.firstPage.AutoSize = true;
-            this.firstPage.Location = new System.Drawing.Point(1504, 652);
+            this.firstPage.Location = new System.Drawing.Point(338, 458);
             this.firstPage.Name = "firstPage";
-            this.firstPage.Size = new System.Drawing.Size(64, 17);
-            this.firstPage.TabIndex = 20;
-            this.firstPage.Text = "firstPage";
-            this.firstPage.Click += new System.EventHandler(this.firstPage_Click);
+            this.firstPage.Size = new System.Drawing.Size(97, 28);
+            this.firstPage.TabIndex = 24;
+            this.firstPage.Text = "First Page";
+            this.firstPage.UseVisualStyleBackColor = true;
+            this.firstPage.Click += new System.EventHandler(this.firstPage_Click_1);
             // 
             // nextPage
             // 
-            this.nextPage.AutoSize = true;
-            this.nextPage.Location = new System.Drawing.Point(1584, 652);
+            this.nextPage.Location = new System.Drawing.Point(445, 458);
             this.nextPage.Name = "nextPage";
-            this.nextPage.Size = new System.Drawing.Size(73, 17);
-            this.nextPage.TabIndex = 21;
+            this.nextPage.Size = new System.Drawing.Size(91, 28);
+            this.nextPage.TabIndex = 25;
             this.nextPage.Text = "Next Page";
-            this.nextPage.Click += new System.EventHandler(this.nextPage_Click);
+            this.nextPage.UseVisualStyleBackColor = true;
+            this.nextPage.Click += new System.EventHandler(this.nextPage_Click_1);
             // 
             // previousPage
             // 
-            this.previousPage.AutoSize = true;
-            this.previousPage.Location = new System.Drawing.Point(1507, 695);
+            this.previousPage.Location = new System.Drawing.Point(338, 500);
             this.previousPage.Name = "previousPage";
-            this.previousPage.Size = new System.Drawing.Size(100, 17);
-            this.previousPage.TabIndex = 22;
+            this.previousPage.Size = new System.Drawing.Size(110, 30);
+            this.previousPage.TabIndex = 26;
             this.previousPage.Text = "Previous Page";
-            this.previousPage.Click += new System.EventHandler(this.previousPage_Click);
+            this.previousPage.UseVisualStyleBackColor = true;
+            this.previousPage.Click += new System.EventHandler(this.previousPage_Click_1);
             // 
             // lastPage
             // 
-            this.lastPage.AutoSize = true;
-            this.lastPage.Location = new System.Drawing.Point(1614, 694);
+            this.lastPage.Location = new System.Drawing.Point(455, 500);
             this.lastPage.Name = "lastPage";
-            this.lastPage.Size = new System.Drawing.Size(72, 17);
-            this.lastPage.TabIndex = 23;
+            this.lastPage.Size = new System.Drawing.Size(93, 30);
+            this.lastPage.TabIndex = 27;
             this.lastPage.Text = "Last Page";
-            this.lastPage.Click += new System.EventHandler(this.lastPage_Click);
+            this.lastPage.UseVisualStyleBackColor = true;
+            this.lastPage.Click += new System.EventHandler(this.lastPage_Click_1);
             // 
             // Form1
             // 
@@ -654,16 +633,14 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(1684, 626);
+            this.ClientSize = new System.Drawing.Size(1777, 626);
             this.Controls.Add(this.lastPage);
             this.Controls.Add(this.previousPage);
             this.Controls.Add(this.nextPage);
             this.Controls.Add(this.firstPage);
             this.Controls.Add(this.bindingNavigator1);
             this.Controls.Add(this.dataGridView1);
-            this.Controls.Add(this.listView1);
             this.Controls.Add(this.linkLabel1);
-            this.Controls.Add(this.resultDisplaylistBox);
             this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.submitButton);
             this.Controls.Add(this.label5);
@@ -738,10 +715,8 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button submitButton;
         private System.Windows.Forms.CheckBox checkBox1;
-        private System.Windows.Forms.ListBox resultDisplaylistBox;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog3;
         private System.Windows.Forms.LinkLabel linkLabel1;
-        private System.Windows.Forms.ListView listView1;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.BindingNavigator bindingNavigator1;
         private System.Windows.Forms.ToolStripButton bindingNavigatorAddNewItem;
@@ -755,10 +730,10 @@
         private System.Windows.Forms.ToolStripButton bindingNavigatorMoveNextItem;
         private System.Windows.Forms.ToolStripButton bindingNavigatorMoveLastItem;
         private System.Windows.Forms.ToolStripSeparator bindingNavigatorSeparator2;
-        private System.Windows.Forms.Label firstPage;
-        private System.Windows.Forms.Label nextPage;
-        private System.Windows.Forms.Label previousPage;
-        private System.Windows.Forms.Label lastPage;
+        private System.Windows.Forms.Button firstPage;
+        private System.Windows.Forms.Button nextPage;
+        private System.Windows.Forms.Button previousPage;
+        private System.Windows.Forms.Button lastPage;
     }
 }
 

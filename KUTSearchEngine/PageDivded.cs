@@ -88,6 +88,8 @@ namespace KUTSearchEngine
             int beginRecord;
             int endRecord;
             DataTable dtTemp=new DataTable();
+
+            
             dtTemp = dtSource.Clone();
 
             beginRecord = pageSize * (currentPage - 1);
@@ -117,6 +119,10 @@ namespace KUTSearchEngine
             currentPage = 1;
 
             LoadPage();//调用加载数据的方法
+        }
+        public void ClearUpDataTable()
+        {
+            dtSource.Clear();
         }
     }
 }
