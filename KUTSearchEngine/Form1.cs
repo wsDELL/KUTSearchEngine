@@ -17,11 +17,14 @@ namespace KUTSearchEngine
         private List<string[]> fileContent = new List<string[]>();
         private string indexPath = "";
         private LuceneAdvancedSearchApplication myLuceneApp = new LuceneAdvancedSearchApplication();
+        private DataTable dataTable = new DataTable();
+        
     
         
         public Form1()
         {
             InitializeComponent();
+            
         }
 
         private void folderBrowserDialog1_HelpRequest(object sender, EventArgs e)
@@ -126,16 +129,18 @@ namespace KUTSearchEngine
             
             string infoNeed = InfoNeedInput.Text;
 
-            DialogResult result1 = MessageBox.Show("Invalid input!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            if(result1==DialogResult.OK)
+            
+            
+            if (infoNeed=="")
             {
-                
+                MessageBox.Show("Invalid input!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning); 
                 InfoNeedInput.Clear();
                 return;
 
                 
 
             }
+            
             myLuceneApp.CreateSearcher();
          
             Lucene.Net.Search.Query query = myLuceneApp.InfoParser(infoNeed);
@@ -145,6 +150,14 @@ namespace KUTSearchEngine
             resultDisplaylistBox.Text += result.MaxScore;
             resultDisplaylistBox.Items.Add( "Number of results is " + result.TotalHits);
             int rank = 0;
+            dataTable.Clear();
+            CreateDataTable();
+            /*
+            dataGridView1.Columns.Add("title","title");
+            dataGridView1.Columns.Add("author", "author");
+            dataGridView1.Columns.Add("bibliographic", "bibliographic");
+            dataGridView1.Columns.Add("firstSentence", "first sentence");
+            */
             foreach (Lucene.Net.Search.ScoreDoc scoreDoc in result.ScoreDocs)
             {
                 rank++;
@@ -154,6 +167,11 @@ namespace KUTSearchEngine
                 string bbibliographic = doc.Get("bibliographic").ToString();
                 string textAbstract = doc.Get("firstSentence").ToString();
                 resultDisplaylistBox.Items.Add(scoreDoc);
+                string[] row = { title, author, bbibliographic, textAbstract };
+
+                dataTable.Rows.Add(row);
+                
+                /*
                 resultDisplaylistBox.Items.Add("title:" + title.Replace(".",""));
 
                 resultDisplaylistBox.Items.Add("author: " + author.Substring(0,author.Length-1));
@@ -163,8 +181,10 @@ namespace KUTSearchEngine
                 //Lucene.Net.Search. Explanation explanation = myLuceneApp.Searcher.Explain(query, scoreDoc.Doc);
                 //resultDisplay.Text+= explanation.ToString();
                 //" text: " + myFieldValue +
-                
+                */
             }
+
+
             myLuceneApp.CleanUpSearcher();
 
         }
@@ -183,5 +203,30 @@ namespace KUTSearchEngine
         {
 
         }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void bindingNavigatorSeparator_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void CreateDataTable()
+        {
+            dataTable.Columns.Add("title");
+            dataTable.Columns.Add("author");
+            dataTable.Columns.Add("bibliographic");
+            dataTable.Columns.Add("firstSentence");
+        }
+
+        private void LoadPag()
+        {
+
+        }
+
     }
+
 }

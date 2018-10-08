@@ -105,6 +105,7 @@
     </Compile>
     <Compile Include="GUI.cs" />
     <Compile Include="LuceneApplication.cs" />
+    <Compile Include="PageDivded.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
