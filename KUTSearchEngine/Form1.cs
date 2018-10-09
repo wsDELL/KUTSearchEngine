@@ -17,11 +17,15 @@ namespace KUTSearchEngine
         private List<string[]> fileContent = new List<string[]>();
         private string indexPath = "";
         private LuceneAdvancedSearchApplication myLuceneApp = new LuceneAdvancedSearchApplication();
+        private DataTable dataTable = new DataTable();
+        private PageDivded pageDivded = new PageDivded();
+
     
         
         public Form1()
         {
             InitializeComponent();
+            
         }
 
         private void folderBrowserDialog1_HelpRequest(object sender, EventArgs e)
@@ -122,29 +126,64 @@ namespace KUTSearchEngine
 
         private void submitButton_Click(object sender, EventArgs e)
         {
-            resultDisplaylistBox.Items.Clear();
             
+            pageDivded.ClearUpDataTable();
+            pageDivded.DtSource.Columns.Clear();
             string infoNeed = InfoNeedInput.Text;
 
-            DialogResult result1 = MessageBox.Show("Invalid input!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            if(result1==DialogResult.OK)
+            
+<<<<<<< HEAD
+<<<<<<< HEAD
+            if(infoNeed == "")
             {
-                
+                DialogResult result1 = MessageBox.Show("Invalid input!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+=======
+            
+            if (infoNeed=="")
+            {
+                MessageBox.Show("Invalid input!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning); 
+>>>>>>> 6feed2643709cd0ffe7cbe966ece9862fa10700a
+=======
+            
+            if (infoNeed=="")
+            {
+                MessageBox.Show("Invalid input!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning); 
+>>>>>>> 6feed2643709cd0ffe7cbe966ece9862fa10700a
                 InfoNeedInput.Clear();
                 return;
-
-                
-
             }
+            
             myLuceneApp.CreateSearcher();
          
             Lucene.Net.Search.Query query = myLuceneApp.InfoParser(infoNeed);
-            queryDisplay.Text = query.ToString();
+            string queryText = query.ToString();
+            queryText = queryText.Replace("abstract:","");
+            queryDisplay.Text = queryText;
             Lucene.Net.Search.TopDocs result= myLuceneApp.SearchText(query);
             
-            resultDisplaylistBox.Text += result.MaxScore;
-            resultDisplaylistBox.Items.Add( "Number of results is " + result.TotalHits);
+            //resultDisplaylistBox.Text += result.MaxScore;
+            //resultDisplaylistBox.Items.Add( "Number of results is " + result.TotalHits);
             int rank = 0;
+
+            //CreateDataTable();
+            
+                pageDivded.DtSource.Columns.Add("rank");
+                pageDivded.DtSource.Columns.Add("title");
+                pageDivded.DtSource.Columns.Add("author");
+                pageDivded.DtSource.Columns.Add("bibliographic");
+                pageDivded.DtSource.Columns.Add("firstSentence");
+            
+           
+
+
+
+
+            /*
+            dataGridView1.Columns.Add("title","title");
+            dataGridView1.Columns.Add("author", "author");
+            dataGridView1.Columns.Add("bibliographic", "bibliographic");
+            dataGridView1.Columns.Add("firstSentence", "first sentence");
+            */
             foreach (Lucene.Net.Search.ScoreDoc scoreDoc in result.ScoreDocs)
             {
                 rank++;
@@ -153,7 +192,12 @@ namespace KUTSearchEngine
                 string author = doc.Get("author").ToString();
                 string bbibliographic = doc.Get("bibliographic").ToString();
                 string textAbstract = doc.Get("firstSentence").ToString();
-                resultDisplaylistBox.Items.Add(scoreDoc);
+               
+                string[] row = {rank.ToString(), title, author, bbibliographic, textAbstract };
+
+                pageDivded.DtSource.Rows.Add(row);
+                
+                /*
                 resultDisplaylistBox.Items.Add("title:" + title.Replace(".",""));
 
                 resultDisplaylistBox.Items.Add("author: " + author.Substring(0,author.Length-1));
@@ -163,8 +207,16 @@ namespace KUTSearchEngine
                 //Lucene.Net.Search. Explanation explanation = myLuceneApp.Searcher.Explain(query, scoreDoc.Doc);
                 //resultDisplay.Text+= explanation.ToString();
                 //" text: " + myFieldValue +
-                
+                */
             }
+            if (pageDivded.DtSource.Rows.Count <= 0)
+            {
+                MessageBox.Show("No result", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            pageDivded.DividedPage();
+            dataGridView1.DataSource = pageDivded.LoadPage();
+            dataGridView1.Show();
             myLuceneApp.CleanUpSearcher();
 
         }
@@ -183,5 +235,53 @@ namespace KUTSearchEngine
         {
 
         }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void bindingNavigatorSeparator_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void CreateDataTable()
+        {
+            dataTable.Columns.Add("title");
+            dataTable.Columns.Add("author");
+            dataTable.Columns.Add("bibliographic");
+            dataTable.Columns.Add("firstSentence");
+        }
+
+
+
+
+
+
+        private void firstPage_Click_1(object sender, EventArgs e)
+        {
+            pageDivded.currentPage = 1;
+            dataGridView1.DataSource=pageDivded.LoadPage();
+        }
+
+        private void nextPage_Click_1(object sender, EventArgs e)
+        {
+            pageDivded.currentPage++;
+            dataGridView1.DataSource= pageDivded.LoadPage();
+        }
+
+        private void previousPage_Click_1(object sender, EventArgs e)
+        {
+            pageDivded.currentPage--;
+            dataGridView1.DataSource= pageDivded.LoadPage();
+        }
+
+        private void lastPage_Click_1(object sender, EventArgs e)
+        {
+            pageDivded.currentPage = pageDivded.pageCount;
+            dataGridView1.DataSource= pageDivded.LoadPage();
+        }
     }
+
 }
