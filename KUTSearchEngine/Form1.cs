@@ -14,14 +14,15 @@ namespace KUTSearchEngine
 {
     public partial class Form1 : Form
     {
-        private List<string[]> fileContent = new List<string[]>();
-        private string indexPath = "";
-        private LuceneAdvancedSearchApplication myLuceneApp = new LuceneAdvancedSearchApplication();
-        private DataTable dataTable = new DataTable();
-        private PageDivded pageDivded = new PageDivded();
-
-    
+        internal List<string[]> fileContent = new List<string[]>();
+        internal string indexPath = "";
+        internal LuceneAdvancedSearchApplication myLuceneApp = new LuceneAdvancedSearchApplication();
+        internal DataTable dataTable = new DataTable();
+        internal PageDivded pageDivded = new PageDivded();
+        internal int selectedItemIndex = 0;
+        private string infoNeed="";
         
+
         public Form1()
         {
             InitializeComponent();
@@ -112,8 +113,6 @@ namespace KUTSearchEngine
             myLuceneApp.CleanUpIndexer();
         }
 
-
-
         private void InfoNeedInput_TextChanged(object sender, EventArgs e)
         {
             
@@ -129,11 +128,19 @@ namespace KUTSearchEngine
             
             pageDivded.ClearUpDataTable();
             pageDivded.DtSource.Columns.Clear();
+<<<<<<< HEAD
             string infoNeed = InfoNeedInput.Text;
             
             if (infoNeed == "")
             {
                 MessageBox.Show("Invalid input!");//, "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+=======
+            infoNeed = InfoNeedInput.Text;
+            if(infoNeed=="")
+            {
+                MessageBox.Show("Invalid input!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                InfoNeedInput.Clear();
+>>>>>>> 1eb85344dc270272854b1f4e59b8952b0717a9af
                 return;
             }
             else
@@ -149,54 +156,38 @@ namespace KUTSearchEngine
             string queryText = query.ToString();
             queryText = queryText.Replace("abstract:","");
             queryDisplay.Text = queryText;
-            Lucene.Net.Search.TopDocs result= myLuceneApp.SearchText(query);
+            Lucene.Net.Search.TopDocs result = myLuceneApp.SearchText(query);
             
-            //resultDisplaylistBox.Text += result.MaxScore;
-            //resultDisplaylistBox.Items.Add( "Number of results is " + result.TotalHits);
+
             int rank = 0;
 
-            //CreateDataTable();
-            
+            pageDivded.DtSource.Columns.Add("list");
+            /*
                 pageDivded.DtSource.Columns.Add("rank");
                 pageDivded.DtSource.Columns.Add("title");
                 pageDivded.DtSource.Columns.Add("author");
                 pageDivded.DtSource.Columns.Add("bibliographic");
                 pageDivded.DtSource.Columns.Add("firstSentence");
-            
-           
-
-
-
-
-            /*
-            dataGridView1.Columns.Add("title","title");
-            dataGridView1.Columns.Add("author", "author");
-            dataGridView1.Columns.Add("bibliographic", "bibliographic");
-            dataGridView1.Columns.Add("firstSentence", "first sentence");
             */
+
             foreach (Lucene.Net.Search.ScoreDoc scoreDoc in result.ScoreDocs)
             {
                 rank++;
                 Lucene.Net.Documents.Document doc =myLuceneApp.GetSearcher.Doc(scoreDoc.Doc);
-                string title = doc.Get("title").ToString();
-                string author = doc.Get("author").ToString();
-                string bbibliographic = doc.Get("bibliographic").ToString();
+                string title = "Title: "+doc.Get("title").ToString();
+                string author = "Author: "+ doc.Get("author").ToString();
+                string bbibliographic = "Bibliographic: " + doc.Get("bibliographic").ToString();
                 string textAbstract = doc.Get("firstSentence").ToString();
+
+                string row = title +"\n"+ author+"\n" + bbibliographic+"\n" + textAbstract;
+                //string[] row = { title, author, bbibliographic, textAbstract };
                
-                string[] row = {rank.ToString(), title, author, bbibliographic, textAbstract };
-
                 pageDivded.DtSource.Rows.Add(row);
-                
                 /*
-                resultDisplaylistBox.Items.Add("title:" + title.Replace(".",""));
-
-                resultDisplaylistBox.Items.Add("author: " + author.Substring(0,author.Length-1));
-                resultDisplaylistBox.Items.Add("bbibliographic:" + bbibliographic.Substring(0,bbibliographic.Length-1));
-                resultDisplaylistBox.Items.Add( textAbstract);
-                resultDisplaylistBox.Items.Add("\n\n");
-                //Lucene.Net.Search. Explanation explanation = myLuceneApp.Searcher.Explain(query, scoreDoc.Doc);
-                //resultDisplay.Text+= explanation.ToString();
-                //" text: " + myFieldValue +
+                pageDivded.DtSource.Rows.Add(author);
+                pageDivded.DtSource.Rows.Add(bbibliographic);
+                pageDivded.DtSource.Rows.Add(textAbstract);
+                pageDivded.DtSource.Rows.Add(" ");
                 */
             }
             if (pageDivded.DtSource.Rows.Count <= 0)
@@ -206,8 +197,17 @@ namespace KUTSearchEngine
             }
             pageDivded.DividedPage();
             dataGridView1.DataSource = pageDivded.LoadPage();
+            
             dataGridView1.Show();
             myLuceneApp.CleanUpSearcher();
+
+            DataGridViewLinkColumn column = new DataGridViewLinkColumn();
+            column.Name= "Link"; 
+            column.UseColumnTextForLinkValue = true;
+            column.Text = "Read"; 
+            column.LinkBehavior = LinkBehavior.HoverUnderline;
+            column.TrackVisitedState = true; 
+            dataGridView1.Columns.Add(column);
 
         }
 
@@ -221,13 +221,25 @@ namespace KUTSearchEngine
             
         }
 
-        private void resultDisplaylistBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
+            myLuceneApp.CreateSearcher();
+            Lucene.Net.Search.Query query = myLuceneApp.InfoParser(infoNeed);
+            Lucene.Net.Search.TopDocs result = myLuceneApp.SearchText(query);
+
+            int index = pageDivded.currentPage-1;
+            
+            if (dataGridView1.Columns[e.ColumnIndex].Name == "Link")
+            {
+                textBox1.Clear();
+                selectedItemIndex = index * 10 + e.RowIndex;
+                Lucene.Net.Documents.Document documents = myLuceneApp.GetSearcher.Doc(result.ScoreDocs[selectedItemIndex].Doc);
+                string abstractText = documents.Get("abstract").ToString();
+                textBox1.Text =abstractText;
+                DataGridViewLinkCell cell = (DataGridViewLinkCell)dataGridView1[e.ColumnIndex, e.RowIndex];
+                cell.LinkVisited = true;
+            }
+            myLuceneApp.CleanUpSearcher();
 
         }
 
@@ -235,19 +247,6 @@ namespace KUTSearchEngine
         {
 
         }
-
-        private void CreateDataTable()
-        {
-            dataTable.Columns.Add("title");
-            dataTable.Columns.Add("author");
-            dataTable.Columns.Add("bibliographic");
-            dataTable.Columns.Add("firstSentence");
-        }
-
-
-
-
-
 
         private void firstPage_Click_1(object sender, EventArgs e)
         {
@@ -272,6 +271,31 @@ namespace KUTSearchEngine
             pageDivded.currentPage = pageDivded.pageCount;
             dataGridView1.DataSource= pageDivded.LoadPage();
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            //StartForm startForm = new StartForm(this);
+            //startForm.ShowDialog();
+            //this.Hide();
+
+            this.Enabled = false;
+            StartForm f = new StartForm(this);
+            f.Show();
+            f.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form2_FormClosing);
+
+        }
+        private void Form2_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            this.Enabled = true;
+        }
+
+        private void listBox1_SelectedIndexChanged_2(object sender, EventArgs e)
+        {
+            
+            
+        }
+        
+
     }
 
 }
