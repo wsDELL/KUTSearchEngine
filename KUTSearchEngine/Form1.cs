@@ -130,16 +130,20 @@ namespace KUTSearchEngine
             pageDivded.ClearUpDataTable();
             pageDivded.DtSource.Columns.Clear();
             string infoNeed = InfoNeedInput.Text;
-
-            DialogResult result1 = MessageBox.Show("Invalid input!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            if(result1==DialogResult.OK)
+            
+            if (infoNeed == "")
             {
-                
-                InfoNeedInput.Clear();
+                MessageBox.Show("Invalid input!");//, "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            
-            myLuceneApp.CreateSearcher();
+            else
+            {
+
+                InfoNeedInput.Clear();
+               // return;
+            }
+
+            myLuceneApp.CreateSearcher();//LuceneAdvancedSearchApplication.luceneIndexDirectory);
          
             Lucene.Net.Search.Query query = myLuceneApp.InfoParser(infoNeed);
             string queryText = query.ToString();

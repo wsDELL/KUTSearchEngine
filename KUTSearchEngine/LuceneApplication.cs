@@ -15,7 +15,7 @@ namespace KUTSearchEngine
 {
     class LuceneAdvancedSearchApplication
     {
-        Lucene.Net.Store.Directory luceneIndexDirectory;
+        public static Lucene.Net.Store.Directory luceneIndexDirectory;
         Lucene.Net.Analysis.Analyzer analyzer;
         Lucene.Net.Index.IndexWriter writer;
         IndexSearcher searcher;
@@ -82,6 +82,7 @@ namespace KUTSearchEngine
         /// </summary>
         public void CreateSearcher()
         {
+            
             searcher = new IndexSearcher(luceneIndexDirectory);
         }
 
