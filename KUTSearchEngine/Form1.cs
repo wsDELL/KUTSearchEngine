@@ -131,24 +131,10 @@ namespace KUTSearchEngine
             pageDivded.DtSource.Columns.Clear();
             string infoNeed = InfoNeedInput.Text;
 
-            
-<<<<<<< HEAD
-<<<<<<< HEAD
-            if(infoNeed == "")
+            DialogResult result1 = MessageBox.Show("Invalid input!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            if(result1==DialogResult.OK)
             {
-                DialogResult result1 = MessageBox.Show("Invalid input!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-=======
-            
-            if (infoNeed=="")
-            {
-                MessageBox.Show("Invalid input!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning); 
->>>>>>> 6feed2643709cd0ffe7cbe966ece9862fa10700a
-=======
-            
-            if (infoNeed=="")
-            {
-                MessageBox.Show("Invalid input!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning); 
->>>>>>> 6feed2643709cd0ffe7cbe966ece9862fa10700a
+                
                 InfoNeedInput.Clear();
                 return;
             }
