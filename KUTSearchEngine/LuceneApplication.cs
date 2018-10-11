@@ -20,6 +20,8 @@ namespace KUTSearchEngine
         Lucene.Net.Index.IndexWriter writer;
         IndexSearcher searcher;
         QueryParser parser;
+       
+        
 
         const Lucene.Net.Util.Version VERSION = Lucene.Net.Util.Version.LUCENE_30;
         const string TEXT_FN = "abstract";
