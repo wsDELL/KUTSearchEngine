@@ -129,11 +129,9 @@ namespace KUTSearchEngine
             pageDivded.ClearUpDataTable();
             pageDivded.DtSource.Columns.Clear();
             infoNeed = InfoNeedInput.Text;
-
-            DialogResult result1 = MessageBox.Show("Invalid input!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            if(result1==DialogResult.OK)
+            if(infoNeed=="")
             {
-                
+                MessageBox.Show("Invalid input!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 InfoNeedInput.Clear();
                 return;
             }
