@@ -143,6 +143,8 @@ namespace KUTSearchEngine
         {
             searcher.Dispose();
         }
+
+        
         /*
         public Directory LuceneIndexDirectory
         {

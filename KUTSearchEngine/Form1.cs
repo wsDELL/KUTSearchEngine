@@ -130,11 +130,10 @@ namespace KUTSearchEngine
             pageDivded.DtSource.Columns.Clear();
             infoNeed = InfoNeedInput.Text;
 
-            
-            
-            if (infoNeed=="")
+            DialogResult result1 = MessageBox.Show("Invalid input!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            if(result1==DialogResult.OK)
             {
-                MessageBox.Show("Invalid input!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning); 
+                
                 InfoNeedInput.Clear();
                 return;
             }
