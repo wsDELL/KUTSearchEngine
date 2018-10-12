@@ -43,7 +43,7 @@ namespace KUTSearchEngine
         /// <param name="indexPath">The pathname to create the index</param>
         public void CreateIndex(string indexPath)
         {
-
+            
             luceneIndexDirectory = Lucene.Net.Store.FSDirectory.Open(indexPath);
             IndexWriter.MaxFieldLength mfl = new IndexWriter.MaxFieldLength(IndexWriter.DEFAULT_MAX_FIELD_LENGTH);
             writer = new Lucene.Net.Index.IndexWriter(luceneIndexDirectory, analyzer, true, mfl);
