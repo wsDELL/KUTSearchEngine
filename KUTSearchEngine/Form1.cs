@@ -128,28 +128,47 @@ namespace KUTSearchEngine
             
             pageDivded.ClearUpDataTable();
             pageDivded.DtSource.Columns.Clear();
-            dataGridView1.Columns.Clear();
-            infoNeed = InfoNeedInput.Text;
+<<<<<<< HEAD
+            string infoNeed = InfoNeedInput.Text;
             
+            if (infoNeed == "")
+            {
+                MessageBox.Show("Invalid input!");//, "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+=======
+            infoNeed = InfoNeedInput.Text;
             if(infoNeed=="")
             {
                 MessageBox.Show("Invalid input!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 InfoNeedInput.Clear();
+>>>>>>> 1eb85344dc270272854b1f4e59b8952b0717a9af
                 return;
             }
-           
-            myLuceneApp.CreateSearcher();
+            else
+            {
+
+                InfoNeedInput.Clear();
+               // return;
+            }
+
+            myLuceneApp.CreateSearcher();//LuceneAdvancedSearchApplication.luceneIndexDirectory);
          
             Lucene.Net.Search.Query query = myLuceneApp.InfoParser(infoNeed);
             string queryText = query.ToString();
             queryText = queryText.Replace("abstract:","");
-            textBox2.Text = queryText;
+            queryDisplay.Text = queryText;
             Lucene.Net.Search.TopDocs result = myLuceneApp.SearchText(query);
+            
 
-            label6.Text = result.TotalHits.ToString();
             int rank = 0;
 
             pageDivded.DtSource.Columns.Add("list");
+            /*
+                pageDivded.DtSource.Columns.Add("rank");
+                pageDivded.DtSource.Columns.Add("title");
+                pageDivded.DtSource.Columns.Add("author");
+                pageDivded.DtSource.Columns.Add("bibliographic");
+                pageDivded.DtSource.Columns.Add("firstSentence");
+            */
 
             foreach (Lucene.Net.Search.ScoreDoc scoreDoc in result.ScoreDocs)
             {
@@ -161,8 +180,15 @@ namespace KUTSearchEngine
                 string textAbstract = doc.Get("firstSentence").ToString();
 
                 string row = title +"\n"+ author+"\n" + bbibliographic+"\n" + textAbstract;
+                //string[] row = { title, author, bbibliographic, textAbstract };
                
                 pageDivded.DtSource.Rows.Add(row);
+                /*
+                pageDivded.DtSource.Rows.Add(author);
+                pageDivded.DtSource.Rows.Add(bbibliographic);
+                pageDivded.DtSource.Rows.Add(textAbstract);
+                pageDivded.DtSource.Rows.Add(" ");
+                */
             }
             if (pageDivded.DtSource.Rows.Count <= 0)
             {
@@ -197,7 +223,6 @@ namespace KUTSearchEngine
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-
             myLuceneApp.CreateSearcher();
             Lucene.Net.Search.Query query = myLuceneApp.InfoParser(infoNeed);
             Lucene.Net.Search.TopDocs result = myLuceneApp.SearchText(query);
@@ -269,71 +294,8 @@ namespace KUTSearchEngine
             
             
         }
-       
-        private void saveResultButton_Click(object sender, EventArgs e)
-        {
+        
 
-
-        }
-
-        private void saveResultButton_Click_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void saveResultButton_Click_2(object sender, EventArgs e)
-        {
-            Stream stream;
-            saveFileDialog1.CreatePrompt = true;
-            saveFileDialog1.OverwritePrompt = true;
-
-            myLuceneApp.CreateSearcher();
-            Lucene.Net.Search.Query query = myLuceneApp.InfoParser(infoNeed);
-            Lucene.Net.Search.TopDocs result = myLuceneApp.SearchText(query);
-            string path = "";
-            string oneLine = "";
-            int rank = 0;
-            string topicID = textBox3.Text;
-            //SaveFileDialog save = new SaveFileDialog();
-
-
-            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
-            {
-                path = saveFileDialog1.FileName;
-                if (File.Exists(path))
-                {
-                    using (StreamWriter sw = File.AppendText(path))
-                    {
-                        foreach (Lucene.Net.Search.ScoreDoc scoreDoc in result.ScoreDocs)
-                        {
-                            rank++;
-                            oneLine = topicID + "   " + "Q0" + "   " + scoreDoc.Doc.ToString() + "   " + scoreDoc.Score.ToString() + "   " + "0123456798_0987654321_ourteam";
-                            sw.WriteLine(oneLine);
-                        }
-                        sw.Flush();
-                        sw.Close();
-                    }
-                }
-                
-                else if ((stream = saveFileDialog1.OpenFile()) != null)
-                {
-                    using (StreamWriter myWritter = new StreamWriter(stream))
-                    {
-
-                        foreach (Lucene.Net.Search.ScoreDoc scoreDoc in result.ScoreDocs)
-                        {
-                            rank++;
-                            oneLine = topicID + "   " + "Q0" + "   " + scoreDoc.Doc.ToString() + "   " + scoreDoc.Score.ToString() + "   " + "0123456798_0987654321_ourteam";
-                            myWritter.WriteLine(oneLine);
-                        }
-                        myWritter.Flush();
-                        myWritter.Close();
-
-                    }
-                }
-
-            }
-        }
     }
 
 }
