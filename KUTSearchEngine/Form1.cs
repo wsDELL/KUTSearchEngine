@@ -20,25 +20,25 @@ namespace KUTSearchEngine
         internal DataTable dataTable = new DataTable();
         internal PageDivded pageDivded = new PageDivded();
         internal int selectedItemIndex = 0;
-        private string infoNeed="";
-        
+        private string infoNeed = "";
+
 
         public Form1()
         {
             InitializeComponent();
-            
+
         }
 
         private void folderBrowserDialog1_HelpRequest(object sender, EventArgs e)
         {
-         
-            
-            
+
+
+
         }
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
+
         }
 
         private void BroweButton1_Click(object sender, EventArgs e)
@@ -51,29 +51,29 @@ namespace KUTSearchEngine
             foreach (FileInfo info in file)
             {
 
-                
+
                 if (info.Extension.ToLower() == ".txt")
                 {
                     string content = File.ReadAllText(info.FullName);
                     string[] delimter = { ".T", ".I", ".A", ".B", ".W" };
-                    string[] contents = content.Split(delimter,StringSplitOptions.None);
+                    string[] contents = content.Split(delimter, StringSplitOptions.None);
                     string[] newList = new string[6];
                     Array.Copy(contents, 1, newList, 0, 5);
-                    for (int i = 0; i < contents.Length-1; i++)
+                    for (int i = 0; i < contents.Length - 1; i++)
                     {
-                       
+
                         contents[i] = contents[i].Replace("\n", "").Replace("\r", " ");
-                        
+
 
                     }
-                    newList[newList.Length-2] = newList[newList.Length-2].Replace(newList[1],"");
+                    newList[newList.Length - 2] = newList[newList.Length - 2].Replace(newList[1], "");
                     string[] splitAbstract = newList[newList.Length - 2].Split('.');
                     newList[newList.Length - 1] = splitAbstract[0] + ".";
                     fileContent.Add(newList);
                 }
             }
 
-            
+
         }
 
         private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
@@ -90,7 +90,7 @@ namespace KUTSearchEngine
         {
             folderBrowserDialog2.ShowDialog();
             indexPath = folderBrowserDialog2.SelectedPath;
-           
+
             myLuceneApp.CreateIndex(indexPath);
             int docID = 0;
             string reminder = "";
@@ -100,22 +100,22 @@ namespace KUTSearchEngine
             foreach (string[] s in fileContent)
             {
 
-                reminder+="Adding doc " + docID + ". to Index\n";
+                reminder += "Adding doc " + docID + ". to Index\n";
                 myLuceneApp.IndexText(s);
                 docID++;
             }
             stopwatch.Stop();
 
             TimeSpan timeSpan = stopwatch.Elapsed;
-            double time=timeSpan.Milliseconds;
-            label2.Text = time+"ms";
-            label3.Text="All documents added.";
+            double time = timeSpan.Milliseconds;
+            label2.Text = time + "ms";
+            label3.Text = "All documents added.";
             myLuceneApp.CleanUpIndexer();
         }
 
         private void InfoNeedInput_TextChanged(object sender, EventArgs e)
         {
-            
+
         }
 
         private void label2_Click(object sender, EventArgs e)
@@ -125,70 +125,44 @@ namespace KUTSearchEngine
 
         private void submitButton_Click(object sender, EventArgs e)
         {
-            
+
             pageDivded.ClearUpDataTable();
             pageDivded.DtSource.Columns.Clear();
-<<<<<<< HEAD
-            string infoNeed = InfoNeedInput.Text;
-            
-            if (infoNeed == "")
-            {
-                MessageBox.Show("Invalid input!");//, "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-=======
+            dataGridView1.Columns.Clear();
             infoNeed = InfoNeedInput.Text;
-            if(infoNeed=="")
+
+            if (infoNeed == "")
             {
                 MessageBox.Show("Invalid input!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 InfoNeedInput.Clear();
->>>>>>> 1eb85344dc270272854b1f4e59b8952b0717a9af
                 return;
             }
-            else
-            {
 
-                InfoNeedInput.Clear();
-               // return;
-            }
+            myLuceneApp.CreateSearcher();
 
-            myLuceneApp.CreateSearcher();//LuceneAdvancedSearchApplication.luceneIndexDirectory);
-         
             Lucene.Net.Search.Query query = myLuceneApp.InfoParser(infoNeed);
             string queryText = query.ToString();
-            queryText = queryText.Replace("abstract:","");
-            queryDisplay.Text = queryText;
+            queryText = queryText.Replace("abstract:", "");
+            textBox2.Text = queryText;
             Lucene.Net.Search.TopDocs result = myLuceneApp.SearchText(query);
-            
 
+            label6.Text = result.TotalHits.ToString();
             int rank = 0;
 
             pageDivded.DtSource.Columns.Add("list");
-            /*
-                pageDivded.DtSource.Columns.Add("rank");
-                pageDivded.DtSource.Columns.Add("title");
-                pageDivded.DtSource.Columns.Add("author");
-                pageDivded.DtSource.Columns.Add("bibliographic");
-                pageDivded.DtSource.Columns.Add("firstSentence");
-            */
 
             foreach (Lucene.Net.Search.ScoreDoc scoreDoc in result.ScoreDocs)
             {
                 rank++;
-                Lucene.Net.Documents.Document doc =myLuceneApp.GetSearcher.Doc(scoreDoc.Doc);
-                string title = "Title: "+doc.Get("title").ToString();
-                string author = "Author: "+ doc.Get("author").ToString();
+                Lucene.Net.Documents.Document doc = myLuceneApp.GetSearcher.Doc(scoreDoc.Doc);
+                string title = "Title: " + doc.Get("title").ToString();
+                string author = "Author: " + doc.Get("author").ToString();
                 string bbibliographic = "Bibliographic: " + doc.Get("bibliographic").ToString();
                 string textAbstract = doc.Get("firstSentence").ToString();
 
-                string row = title +"\n"+ author+"\n" + bbibliographic+"\n" + textAbstract;
-                //string[] row = { title, author, bbibliographic, textAbstract };
-               
+                string row = title + "\n" + author + "\n" + bbibliographic + "\n" + textAbstract;
+
                 pageDivded.DtSource.Rows.Add(row);
-                /*
-                pageDivded.DtSource.Rows.Add(author);
-                pageDivded.DtSource.Rows.Add(bbibliographic);
-                pageDivded.DtSource.Rows.Add(textAbstract);
-                pageDivded.DtSource.Rows.Add(" ");
-                */
             }
             if (pageDivded.DtSource.Rows.Count <= 0)
             {
@@ -197,45 +171,46 @@ namespace KUTSearchEngine
             }
             pageDivded.DividedPage();
             dataGridView1.DataSource = pageDivded.LoadPage();
-            
+
             dataGridView1.Show();
             myLuceneApp.CleanUpSearcher();
 
             DataGridViewLinkColumn column = new DataGridViewLinkColumn();
-            column.Name= "Link"; 
+            column.Name = "Link";
             column.UseColumnTextForLinkValue = true;
-            column.Text = "Read"; 
+            column.Text = "Read";
             column.LinkBehavior = LinkBehavior.HoverUnderline;
-            column.TrackVisitedState = true; 
+            column.TrackVisitedState = true;
             dataGridView1.Columns.Add(column);
 
         }
 
         private void listBox1_SelectedIndexChanged_1(object sender, EventArgs e)
         {
-            
+
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-            
+
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
+
             myLuceneApp.CreateSearcher();
             Lucene.Net.Search.Query query = myLuceneApp.InfoParser(infoNeed);
             Lucene.Net.Search.TopDocs result = myLuceneApp.SearchText(query);
 
-            int index = pageDivded.currentPage-1;
-            
+            int index = pageDivded.currentPage - 1;
+
             if (dataGridView1.Columns[e.ColumnIndex].Name == "Link")
             {
                 textBox1.Clear();
                 selectedItemIndex = index * 10 + e.RowIndex;
                 Lucene.Net.Documents.Document documents = myLuceneApp.GetSearcher.Doc(result.ScoreDocs[selectedItemIndex].Doc);
                 string abstractText = documents.Get("abstract").ToString();
-                textBox1.Text =abstractText;
+                textBox1.Text = abstractText;
                 DataGridViewLinkCell cell = (DataGridViewLinkCell)dataGridView1[e.ColumnIndex, e.RowIndex];
                 cell.LinkVisited = true;
             }
@@ -251,25 +226,25 @@ namespace KUTSearchEngine
         private void firstPage_Click_1(object sender, EventArgs e)
         {
             pageDivded.currentPage = 1;
-            dataGridView1.DataSource=pageDivded.LoadPage();
+            dataGridView1.DataSource = pageDivded.LoadPage();
         }
 
         private void nextPage_Click_1(object sender, EventArgs e)
         {
             pageDivded.currentPage++;
-            dataGridView1.DataSource= pageDivded.LoadPage();
+            dataGridView1.DataSource = pageDivded.LoadPage();
         }
 
         private void previousPage_Click_1(object sender, EventArgs e)
         {
             pageDivded.currentPage--;
-            dataGridView1.DataSource= pageDivded.LoadPage();
+            dataGridView1.DataSource = pageDivded.LoadPage();
         }
 
         private void lastPage_Click_1(object sender, EventArgs e)
         {
             pageDivded.currentPage = pageDivded.pageCount;
-            dataGridView1.DataSource= pageDivded.LoadPage();
+            dataGridView1.DataSource = pageDivded.LoadPage();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -291,11 +266,74 @@ namespace KUTSearchEngine
 
         private void listBox1_SelectedIndexChanged_2(object sender, EventArgs e)
         {
-            
-            
-        }
-        
 
+
+        }
+
+        private void saveResultButton_Click(object sender, EventArgs e)
+        {
+
+
+        }
+
+        private void saveResultButton_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void saveResultButton_Click_2(object sender, EventArgs e)
+        {
+            Stream stream;
+            saveFileDialog1.CreatePrompt = true;
+            saveFileDialog1.OverwritePrompt = true;
+
+            myLuceneApp.CreateSearcher();
+            Lucene.Net.Search.Query query = myLuceneApp.InfoParser(infoNeed);
+            Lucene.Net.Search.TopDocs result = myLuceneApp.SearchText(query);
+            string path = "";
+            string oneLine = "";
+            int rank = 0;
+            string topicID = textBox3.Text;
+            //SaveFileDialog save = new SaveFileDialog();
+
+
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                path = saveFileDialog1.FileName;
+                if (File.Exists(path))
+                {
+                    using (StreamWriter sw = File.AppendText(path))
+                    {
+                        foreach (Lucene.Net.Search.ScoreDoc scoreDoc in result.ScoreDocs)
+                        {
+                            rank++;
+                            oneLine = topicID + "   " + "Q0" + "   " + scoreDoc.Doc.ToString() + "   " + scoreDoc.Score.ToString() + "   " + "0123456798_0987654321_ourteam";
+                            sw.WriteLine(oneLine);
+                        }
+                        sw.Flush();
+                        sw.Close();
+                    }
+                }
+
+                else if ((stream = saveFileDialog1.OpenFile()) != null)
+                {
+                    using (StreamWriter myWritter = new StreamWriter(stream))
+                    {
+
+                        foreach (Lucene.Net.Search.ScoreDoc scoreDoc in result.ScoreDocs)
+                        {
+                            rank++;
+                            oneLine = topicID + "   " + "Q0" + "   " + scoreDoc.Doc.ToString() + "   " + scoreDoc.Score.ToString() + "   " + "0123456798_0987654321_ourteam";
+                            myWritter.WriteLine(oneLine);
+                        }
+                        myWritter.Flush();
+                        myWritter.Close();
+
+                    }
+                }
+
+            }
+        }
     }
 
 }
