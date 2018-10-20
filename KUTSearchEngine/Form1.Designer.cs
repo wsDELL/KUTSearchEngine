@@ -85,6 +85,7 @@
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
@@ -96,11 +97,11 @@
             // startIndex
             // 
             this.startIndex.AutoSize = true;
-            this.startIndex.Font = new System.Drawing.Font("Calibri", 11F);
+            this.startIndex.Font = new System.Drawing.Font("Calibri", 10.8F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.startIndex.Location = new System.Drawing.Point(222, 130);
             this.startIndex.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.startIndex.Name = "startIndex";
-            this.startIndex.Size = new System.Drawing.Size(238, 23);
+            this.startIndex.Size = new System.Drawing.Size(237, 23);
             this.startIndex.TabIndex = 2;
             this.startIndex.Text = "Adding Documents to Index...";
             // 
@@ -346,11 +347,11 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Calibri", 11F);
+            this.label3.Font = new System.Drawing.Font("Calibri", 10.8F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.Location = new System.Drawing.Point(477, 130);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(157, 23);
+            this.label3.Size = new System.Drawing.Size(158, 23);
             this.label3.TabIndex = 6;
             this.label3.Text = "Document added...";
             // 
@@ -385,7 +386,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Calibri", 11F);
+            this.label2.Font = new System.Drawing.Font("Calibri", 10.8F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(656, 130);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
@@ -396,24 +397,26 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Calibri", 12F);
+            this.label5.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.Location = new System.Drawing.Point(49, 62);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(169, 24);
+            this.label5.Size = new System.Drawing.Size(171, 24);
             this.label5.TabIndex = 12;
             this.label5.Text = "Information needs:";
             // 
             // submitButton
             // 
-            this.submitButton.Font = new System.Drawing.Font("Calibri", 12F);
+            this.submitButton.BackColor = System.Drawing.SystemColors.Highlight;
+            this.submitButton.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.submitButton.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.submitButton.Location = new System.Drawing.Point(873, 62);
             this.submitButton.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.submitButton.Name = "submitButton";
             this.submitButton.Size = new System.Drawing.Size(114, 31);
             this.submitButton.TabIndex = 13;
             this.submitButton.Text = "Search";
-            this.submitButton.UseVisualStyleBackColor = true;
+            this.submitButton.UseVisualStyleBackColor = false;
             this.submitButton.Click += new System.EventHandler(this.submitButton_Click);
             // 
             // dataGridView1
@@ -434,7 +437,7 @@
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridView1.GridColor = System.Drawing.SystemColors.WindowFrame;
-            this.dataGridView1.Location = new System.Drawing.Point(226, 252);
+            this.dataGridView1.Location = new System.Drawing.Point(226, 290);
             this.dataGridView1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
@@ -452,46 +455,50 @@
             // 
             // firstPage
             // 
-            this.firstPage.Location = new System.Drawing.Point(351, 643);
+            this.firstPage.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.firstPage.Location = new System.Drawing.Point(351, 681);
             this.firstPage.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.firstPage.Name = "firstPage";
             this.firstPage.Size = new System.Drawing.Size(85, 26);
             this.firstPage.TabIndex = 24;
             this.firstPage.Text = "First Page";
-            this.firstPage.UseVisualStyleBackColor = true;
+            this.firstPage.UseVisualStyleBackColor = false;
             this.firstPage.Click += new System.EventHandler(this.firstPage_Click_1);
             // 
             // nextPage
             // 
-            this.nextPage.Location = new System.Drawing.Point(681, 643);
+            this.nextPage.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.nextPage.Location = new System.Drawing.Point(681, 681);
             this.nextPage.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.nextPage.Name = "nextPage";
             this.nextPage.Size = new System.Drawing.Size(80, 28);
             this.nextPage.TabIndex = 25;
             this.nextPage.Text = "Next Page";
-            this.nextPage.UseVisualStyleBackColor = true;
+            this.nextPage.UseVisualStyleBackColor = false;
             this.nextPage.Click += new System.EventHandler(this.nextPage_Click_1);
             // 
             // previousPage
             // 
-            this.previousPage.Location = new System.Drawing.Point(444, 643);
+            this.previousPage.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.previousPage.Location = new System.Drawing.Point(444, 681);
             this.previousPage.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.previousPage.Name = "previousPage";
             this.previousPage.Size = new System.Drawing.Size(96, 26);
             this.previousPage.TabIndex = 26;
             this.previousPage.Text = "Previous Page";
-            this.previousPage.UseVisualStyleBackColor = true;
+            this.previousPage.UseVisualStyleBackColor = false;
             this.previousPage.Click += new System.EventHandler(this.previousPage_Click_1);
             // 
             // lastPage
             // 
-            this.lastPage.Location = new System.Drawing.Point(769, 643);
+            this.lastPage.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.lastPage.Location = new System.Drawing.Point(769, 681);
             this.lastPage.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.lastPage.Name = "lastPage";
             this.lastPage.Size = new System.Drawing.Size(80, 28);
             this.lastPage.TabIndex = 27;
             this.lastPage.Text = "Last Page";
-            this.lastPage.UseVisualStyleBackColor = true;
+            this.lastPage.UseVisualStyleBackColor = false;
             this.lastPage.Click += new System.EventHandler(this.lastPage_Click_1);
             // 
             // button1
@@ -507,28 +514,32 @@
             // 
             // saveResultButton
             // 
+            this.saveResultButton.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.saveResultButton.Font = new System.Drawing.Font("Calibri", 11F);
-            this.saveResultButton.Location = new System.Drawing.Point(867, 692);
+            this.saveResultButton.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.saveResultButton.Location = new System.Drawing.Point(864, 730);
             this.saveResultButton.Name = "saveResultButton";
             this.saveResultButton.Size = new System.Drawing.Size(125, 30);
             this.saveResultButton.TabIndex = 30;
             this.saveResultButton.Text = "Save Result";
-            this.saveResultButton.UseVisualStyleBackColor = true;
+            this.saveResultButton.UseVisualStyleBackColor = false;
             this.saveResultButton.Click += new System.EventHandler(this.saveResultButton_Click_2);
             // 
             // textBox2
             // 
+            this.textBox2.BackColor = System.Drawing.SystemColors.Info;
             this.textBox2.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox2.Location = new System.Drawing.Point(226, 165);
             this.textBox2.Multiline = true;
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(763, 68);
             this.textBox2.TabIndex = 31;
+            this.textBox2.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(590, 649);
+            this.label6.Location = new System.Drawing.Point(590, 687);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(34, 16);
             this.label6.TabIndex = 32;
@@ -536,7 +547,7 @@
             // 
             // textBox3
             // 
-            this.textBox3.Location = new System.Drawing.Point(548, 692);
+            this.textBox3.Location = new System.Drawing.Point(548, 730);
             this.textBox3.Multiline = true;
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(301, 30);
@@ -546,7 +557,7 @@
             // 
             this.queryIdentificationReminder.AutoSize = true;
             this.queryIdentificationReminder.Font = new System.Drawing.Font("Calibri", 11F);
-            this.queryIdentificationReminder.Location = new System.Drawing.Point(225, 692);
+            this.queryIdentificationReminder.Location = new System.Drawing.Point(225, 730);
             this.queryIdentificationReminder.Name = "queryIdentificationReminder";
             this.queryIdentificationReminder.Size = new System.Drawing.Size(304, 23);
             this.queryIdentificationReminder.TabIndex = 35;
@@ -567,22 +578,35 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Calibri", 11F);
+            this.label1.Font = new System.Drawing.Font("Calibri", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(152, 168);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(63, 23);
+            this.label1.Size = new System.Drawing.Size(64, 23);
             this.label1.TabIndex = 37;
             this.label1.Text = "Query:";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Calibri", 11F);
+            this.label4.Font = new System.Drawing.Font("Calibri", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.Location = new System.Drawing.Point(145, 252);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(70, 23);
+            this.label4.Size = new System.Drawing.Size(74, 23);
             this.label4.TabIndex = 38;
             this.label4.Text = "Results:";
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Items.AddRange(new object[] {
+            "level1",
+            "level2",
+            "level3"});
+            this.comboBox1.Location = new System.Drawing.Point(31, 299);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(121, 23);
+            this.comboBox1.TabIndex = 39;
+            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // Form1
             // 
@@ -591,7 +615,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(1096, 737);
+            this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.ClientSize = new System.Drawing.Size(1096, 953);
+            this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.checkBox1);
@@ -618,6 +644,7 @@
             this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.Name = "Form1";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
@@ -682,6 +709,7 @@
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.ComboBox comboBox1;
     }
 }
 
