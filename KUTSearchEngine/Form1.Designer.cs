@@ -86,6 +86,11 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.radioButton1 = new System.Windows.Forms.RadioButton();
+            this.label7 = new System.Windows.Forms.Label();
+            this.radioButton2 = new System.Windows.Forms.RadioButton();
+            this.radioButton3 = new System.Windows.Forms.RadioButton();
+            this.radioButton4 = new System.Windows.Forms.RadioButton();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
@@ -437,7 +442,7 @@
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridView1.GridColor = System.Drawing.SystemColors.WindowFrame;
-            this.dataGridView1.Location = new System.Drawing.Point(226, 290);
+            this.dataGridView1.Location = new System.Drawing.Point(226, 309);
             this.dataGridView1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
@@ -448,7 +453,7 @@
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(763, 376);
+            this.dataGridView1.Size = new System.Drawing.Size(763, 536);
             this.dataGridView1.StandardTab = true;
             this.dataGridView1.TabIndex = 18;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
@@ -456,7 +461,7 @@
             // firstPage
             // 
             this.firstPage.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.firstPage.Location = new System.Drawing.Point(351, 681);
+            this.firstPage.Location = new System.Drawing.Point(362, 856);
             this.firstPage.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.firstPage.Name = "firstPage";
             this.firstPage.Size = new System.Drawing.Size(85, 26);
@@ -468,7 +473,7 @@
             // nextPage
             // 
             this.nextPage.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.nextPage.Location = new System.Drawing.Point(681, 681);
+            this.nextPage.Location = new System.Drawing.Point(692, 856);
             this.nextPage.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.nextPage.Name = "nextPage";
             this.nextPage.Size = new System.Drawing.Size(80, 28);
@@ -480,7 +485,7 @@
             // previousPage
             // 
             this.previousPage.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.previousPage.Location = new System.Drawing.Point(444, 681);
+            this.previousPage.Location = new System.Drawing.Point(455, 856);
             this.previousPage.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.previousPage.Name = "previousPage";
             this.previousPage.Size = new System.Drawing.Size(96, 26);
@@ -492,7 +497,7 @@
             // lastPage
             // 
             this.lastPage.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.lastPage.Location = new System.Drawing.Point(769, 681);
+            this.lastPage.Location = new System.Drawing.Point(780, 856);
             this.lastPage.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.lastPage.Name = "lastPage";
             this.lastPage.Size = new System.Drawing.Size(80, 28);
@@ -517,7 +522,7 @@
             this.saveResultButton.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.saveResultButton.Font = new System.Drawing.Font("Calibri", 11F);
             this.saveResultButton.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.saveResultButton.Location = new System.Drawing.Point(864, 730);
+            this.saveResultButton.Location = new System.Drawing.Point(873, 905);
             this.saveResultButton.Name = "saveResultButton";
             this.saveResultButton.Size = new System.Drawing.Size(125, 30);
             this.saveResultButton.TabIndex = 30;
@@ -529,7 +534,7 @@
             // 
             this.textBox2.BackColor = System.Drawing.SystemColors.Info;
             this.textBox2.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox2.Location = new System.Drawing.Point(226, 165);
+            this.textBox2.Location = new System.Drawing.Point(226, 194);
             this.textBox2.Multiline = true;
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(763, 68);
@@ -539,7 +544,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(590, 687);
+            this.label6.Location = new System.Drawing.Point(601, 862);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(34, 16);
             this.label6.TabIndex = 32;
@@ -547,7 +552,7 @@
             // 
             // textBox3
             // 
-            this.textBox3.Location = new System.Drawing.Point(548, 730);
+            this.textBox3.Location = new System.Drawing.Point(555, 905);
             this.textBox3.Multiline = true;
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(301, 30);
@@ -557,7 +562,7 @@
             // 
             this.queryIdentificationReminder.AutoSize = true;
             this.queryIdentificationReminder.Font = new System.Drawing.Font("Calibri", 11F);
-            this.queryIdentificationReminder.Location = new System.Drawing.Point(225, 730);
+            this.queryIdentificationReminder.Location = new System.Drawing.Point(236, 903);
             this.queryIdentificationReminder.Name = "queryIdentificationReminder";
             this.queryIdentificationReminder.Size = new System.Drawing.Size(304, 23);
             this.queryIdentificationReminder.TabIndex = 35;
@@ -589,7 +594,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Calibri", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(145, 252);
+            this.label4.Location = new System.Drawing.Point(146, 280);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(74, 23);
             this.label4.TabIndex = 38;
@@ -602,11 +607,65 @@
             "level1",
             "level2",
             "level3"});
-            this.comboBox1.Location = new System.Drawing.Point(31, 299);
+            this.comboBox1.Location = new System.Drawing.Point(227, 168);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(121, 23);
             this.comboBox1.TabIndex = 39;
             this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            // 
+            // radioButton1
+            // 
+            this.radioButton1.AutoSize = true;
+            this.radioButton1.Location = new System.Drawing.Point(227, 283);
+            this.radioButton1.Name = "radioButton1";
+            this.radioButton1.Size = new System.Drawing.Size(54, 20);
+            this.radioButton1.TabIndex = 40;
+            this.radioButton1.TabStop = true;
+            this.radioButton1.Text = "Title";
+            this.radioButton1.UseVisualStyleBackColor = true;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(355, 171);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(100, 16);
+            this.label7.TabIndex = 41;
+            this.label7.Text = "query expansion";
+            this.label7.Click += new System.EventHandler(this.label7_Click);
+            // 
+            // radioButton2
+            // 
+            this.radioButton2.AutoSize = true;
+            this.radioButton2.Location = new System.Drawing.Point(295, 282);
+            this.radioButton2.Name = "radioButton2";
+            this.radioButton2.Size = new System.Drawing.Size(68, 20);
+            this.radioButton2.TabIndex = 42;
+            this.radioButton2.TabStop = true;
+            this.radioButton2.Text = "Author";
+            this.radioButton2.UseVisualStyleBackColor = true;
+            // 
+            // radioButton3
+            // 
+            this.radioButton3.AutoSize = true;
+            this.radioButton3.Location = new System.Drawing.Point(379, 283);
+            this.radioButton3.Name = "radioButton3";
+            this.radioButton3.Size = new System.Drawing.Size(99, 20);
+            this.radioButton3.TabIndex = 43;
+            this.radioButton3.TabStop = true;
+            this.radioButton3.Text = "Bibliography";
+            this.radioButton3.UseVisualStyleBackColor = true;
+            // 
+            // radioButton4
+            // 
+            this.radioButton4.AutoSize = true;
+            this.radioButton4.Location = new System.Drawing.Point(494, 283);
+            this.radioButton4.Name = "radioButton4";
+            this.radioButton4.Size = new System.Drawing.Size(77, 20);
+            this.radioButton4.TabIndex = 44;
+            this.radioButton4.TabStop = true;
+            this.radioButton4.Text = "Abstract";
+            this.radioButton4.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
@@ -617,6 +676,11 @@
             this.AutoSize = true;
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.ClientSize = new System.Drawing.Size(1096, 953);
+            this.Controls.Add(this.radioButton4);
+            this.Controls.Add(this.radioButton3);
+            this.Controls.Add(this.radioButton2);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.radioButton1);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label1);
@@ -710,6 +774,11 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.RadioButton radioButton1;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.RadioButton radioButton2;
+        private System.Windows.Forms.RadioButton radioButton3;
+        private System.Windows.Forms.RadioButton radioButton4;
     }
 }
 
