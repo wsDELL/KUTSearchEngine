@@ -9,17 +9,19 @@ using Lucene.Net.Index; //for Index Writer
 using Lucene.Net.Store; //for Directory
 using Lucene.Net.Search; // for IndexSearcher
 using Lucene.Net.QueryParsers;  // for QueryParser
-using Lucene.Net.Analysis.Snowball; // for snowball analyser 
+using Lucene.Net.Analysis.Snowball; // for snowball analyser
+
 
 namespace KUTSearchEngine
 {
-    class LuceneAdvancedSearchApplication
+    class LuceneAdvancedSearchApplication: DefaultSimilarity
     {
         public static Lucene.Net.Store.Directory luceneIndexDirectory;
         Lucene.Net.Analysis.Analyzer analyzer;
         Lucene.Net.Index.IndexWriter writer;
         IndexSearcher searcher;
         QueryParser parser;
+        //Similarity similarity;
        
         
 
@@ -35,6 +37,7 @@ namespace KUTSearchEngine
             analyzer = new Lucene.Net.Analysis.Standard.StandardAnalyzer(VERSION);
             //analyzer = new Lucene.Net.Analysis.Snowball.SnowballAnalyzer(VERSION, "English");
             parser = new QueryParser(Lucene.Net.Util.Version.LUCENE_30, TEXT_FN, analyzer);
+            //similarity = new similarity();
 
         }
         /// <summary>
@@ -47,6 +50,7 @@ namespace KUTSearchEngine
             luceneIndexDirectory = Lucene.Net.Store.FSDirectory.Open(indexPath);
             IndexWriter.MaxFieldLength mfl = new IndexWriter.MaxFieldLength(IndexWriter.DEFAULT_MAX_FIELD_LENGTH);
             writer = new Lucene.Net.Index.IndexWriter(luceneIndexDirectory, analyzer, true, mfl);
+            //writer.SetSimilarity (similarity);
         }
 
         /// <summary>
@@ -56,9 +60,6 @@ namespace KUTSearchEngine
         public void IndexText(string[] text)
         {
             Lucene.Net.Documents.Document doc = new Document();
-
-
-
             doc.Add(new Field("id", text[0], Field.Store.YES, Field.Index.ANALYZED, Field.TermVector.YES));
             doc.Add(new Field("title", text[1], Field.Store.YES, Field.Index.ANALYZED, Field.TermVector.YES));
             doc.Add(new Field("author", text[2], Field.Store.YES, Field.Index.ANALYZED, Field.TermVector.YES));
@@ -105,28 +106,20 @@ namespace KUTSearchEngine
 
 
             TopDocs results = searcher.Search(query, 1400);
-
+            //searcher.Similarity = similarity;
             return results;
 
 
         }
 
-        public void DisplayOneResult(TopDocs results, Query query)
+        public Dictionary<string, string[]> CreateThesaurus()
         {
+            Dictionary<string, string[]> thesaurus = new Dictionary<string, string[]>();
 
-            System.Console.WriteLine("Number of results is " + results.TotalHits);
-            int rank = 0;
-            foreach (ScoreDoc scoreDoc in results.ScoreDocs)
-            {
-                rank++;
-                Lucene.Net.Documents.Document doc = searcher.Doc(scoreDoc.Doc);
-                string myFieldValue = doc.Get(TEXT_FN).ToString();
-                Console.WriteLine("Rank: " + rank + " text: " + myFieldValue + " Score: " + scoreDoc.Score + " Doc-id: " + scoreDoc.Doc);
-                Explanation explanation = searcher.Explain(query, scoreDoc.Doc);
-                Console.WriteLine(explanation.ToString());
-
-            }
-
+            thesaurus.Add("walk", new[] { "walk", "walked", "walking" });
+            thesaurus.Add("run", new[] { "run", "running" });
+            thesaurus.Add("love", new[] { "love", "lovely", "loving" });
+            return thesaurus;
         }
 
         public Searcher GetSearcher 
@@ -145,43 +138,6 @@ namespace KUTSearchEngine
             searcher.Dispose();
         }
 
-        
-        /*
-        public Directory LuceneIndexDirectory
-        {
-            get
-            {
-                return luceneIndexDirectory;
-            }
-            set
-            {
-                luceneIndexDirectory = value;
-            }
-        }
 
-        static void Main(string[] args)
-        {
-
-            System.Console.WriteLine("Hello Lucene.Net");
-
-            LuceneApplication myLuceneApp = new LuceneApplication();
-            string indexPath = @"C:\Lucene\MyIndex";
-            LuceneApplication luceneApplication = new LuceneApplication();
-            luceneApplication.OpenIndex(indexPath);
-
-            luceneApplication.CreateAnalyser();
-            luceneApplication.CreateWriter();
-
-            string text = "The Daily Star";
-            luceneApplication.IndexText(text);
-            luceneApplication.CleanUp();
-
-
-
-
-
-            System.Console.ReadLine();
-        }
-        */
     }
 }

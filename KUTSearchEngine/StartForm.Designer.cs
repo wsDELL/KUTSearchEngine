@@ -28,47 +28,117 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.button1 = new System.Windows.Forms.Button();
-            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.continueButton = new System.Windows.Forms.Button();
+            this.browseButton = new System.Windows.Forms.Button();
+            this.browswShow = new System.Windows.Forms.TextBox();
+            this.indexPathShow = new System.Windows.Forms.TextBox();
+            this.createIndexButton = new System.Windows.Forms.Button();
+            this.openSourceCollectionFileDialog = new System.Windows.Forms.FolderBrowserDialog();
+            this.openIndexFileDialog = new System.Windows.Forms.FolderBrowserDialog();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // button1
+            // continueButton
             // 
-            this.button1.Location = new System.Drawing.Point(642, 365);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.continueButton.Font = new System.Drawing.Font("Calibri", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.continueButton.Location = new System.Drawing.Point(535, 347);
+            this.continueButton.Name = "continueButton";
+            this.continueButton.Size = new System.Drawing.Size(201, 31);
+            this.continueButton.TabIndex = 0;
+            this.continueButton.Text = "Contibue";
+            this.continueButton.UseVisualStyleBackColor = true;
+            this.continueButton.Click += new System.EventHandler(this.button1_Click);
             // 
-            // listBox1
+            // browseButton
             // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.ItemHeight = 16;
-            this.listBox1.Location = new System.Drawing.Point(116, 68);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(424, 276);
-            this.listBox1.TabIndex = 1;
-            this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
+            this.browseButton.Font = new System.Drawing.Font("Calibri", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.browseButton.Location = new System.Drawing.Point(625, 127);
+            this.browseButton.Name = "browseButton";
+            this.browseButton.Size = new System.Drawing.Size(111, 30);
+            this.browseButton.TabIndex = 1;
+            this.browseButton.Text = "Browse";
+            this.browseButton.UseVisualStyleBackColor = true;
+            this.browseButton.Click += new System.EventHandler(this.browseButton_Click);
+            // 
+            // browswShow
+            // 
+            this.browswShow.Location = new System.Drawing.Point(126, 127);
+            this.browswShow.Multiline = true;
+            this.browswShow.Name = "browswShow";
+            this.browswShow.Size = new System.Drawing.Size(454, 30);
+            this.browswShow.TabIndex = 2;
+            // 
+            // indexPathShow
+            // 
+            this.indexPathShow.Location = new System.Drawing.Point(126, 211);
+            this.indexPathShow.Multiline = true;
+            this.indexPathShow.Name = "indexPathShow";
+            this.indexPathShow.Size = new System.Drawing.Size(454, 30);
+            this.indexPathShow.TabIndex = 3;
+            // 
+            // createIndexButton
+            // 
+            this.createIndexButton.Font = new System.Drawing.Font("Calibri", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.createIndexButton.Location = new System.Drawing.Point(625, 211);
+            this.createIndexButton.Name = "createIndexButton";
+            this.createIndexButton.Size = new System.Drawing.Size(111, 30);
+            this.createIndexButton.TabIndex = 4;
+            this.createIndexButton.Text = "Create Index";
+            this.createIndexButton.UseVisualStyleBackColor = true;
+            this.createIndexButton.Click += new System.EventHandler(this.createIndexButton_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Calibri", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(125, 185);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(343, 23);
+            this.label1.TabIndex = 5;
+            this.label1.Text = "Please choose a directory to save the index:";
+            this.label1.Click += new System.EventHandler(this.label1_Click);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Calibri", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(125, 101);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(286, 23);
+            this.label2.TabIndex = 6;
+            this.label2.Text = "Please choose the source collection:";
             // 
             // StartForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.listBox1);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.createIndexButton);
+            this.Controls.Add(this.indexPathShow);
+            this.Controls.Add(this.browswShow);
+            this.Controls.Add(this.browseButton);
+            this.Controls.Add(this.continueButton);
             this.Name = "StartForm";
             this.Text = "StartForm";
             this.Load += new System.EventHandler(this.StartForm_Load);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.Button continueButton;
+        private System.Windows.Forms.Button browseButton;
+        private System.Windows.Forms.TextBox browswShow;
+        private System.Windows.Forms.TextBox indexPathShow;
+        private System.Windows.Forms.Button createIndexButton;
+        private System.Windows.Forms.FolderBrowserDialog openSourceCollectionFileDialog;
+        private System.Windows.Forms.FolderBrowserDialog openIndexFileDialog;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
     }
 }

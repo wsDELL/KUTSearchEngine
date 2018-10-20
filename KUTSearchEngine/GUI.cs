@@ -16,7 +16,20 @@ namespace KUTSearchEngine
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+
+            StartForm startForm = new StartForm();
+            startForm.ShowDialog();
+            if (startForm.DialogResult == DialogResult.OK)
+            {
+                Form1 form1 = new Form1();
+                form1.SourceCollectionPath(GlobalData.soureCollectionPath);
+                form1.IndexBrowse(GlobalData.createIndexPath);
+                Application.Run(form1);
+               
+                
+            }
+
+
         }
     }
 }

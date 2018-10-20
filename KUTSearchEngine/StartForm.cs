@@ -7,22 +7,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
 
 namespace KUTSearchEngine
 {
     public partial class StartForm : Form
     {
-        Form startForm;
-        Form1 form1 = new Form1();
-        public StartForm(Form form)
+
+        
+        public StartForm()
         {
             InitializeComponent();
-            this.startForm = form;
+            
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-
+            this.DialogResult = DialogResult.OK;
         }
         private void Form2_FormClosing(object sender, EventArgs e)
         {
@@ -34,14 +35,37 @@ namespace KUTSearchEngine
 
         private void StartForm_Load(object sender, EventArgs e)
         {
-            form1.Show();
+
             this.Hide();
         }
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string displayResult=form1.fileContent[form1.selectedItemIndex][5];
-            listBox1.Items.Add(displayResult);
+
+        }
+
+        private void browseButton_Click(object sender, EventArgs e)
+        {
+            openSourceCollectionFileDialog.ShowDialog();
+
+            browswShow.Text = openSourceCollectionFileDialog.SelectedPath;
+
+            GlobalData.soureCollectionPath = openSourceCollectionFileDialog.SelectedPath;
+        }
+              
+        
+
+        private void createIndexButton_Click(object sender, EventArgs e)
+        {
+            openIndexFileDialog.ShowDialog();
+            indexPathShow.Text = openIndexFileDialog.SelectedPath;
+            GlobalData.createIndexPath = openIndexFileDialog.SelectedPath;
+            
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

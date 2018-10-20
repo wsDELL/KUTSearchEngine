@@ -16,11 +16,13 @@ namespace KUTSearchEngine
     {
         internal List<string[]> fileContent = new List<string[]>();
         internal string indexPath = "";
+        internal string path = "";
         internal LuceneAdvancedSearchApplication myLuceneApp = new LuceneAdvancedSearchApplication();
         internal DataTable dataTable = new DataTable();
         internal PageDivded pageDivded = new PageDivded();
         internal int selectedItemIndex = 0;
         private string infoNeed = "";
+        
 
 
         public Form1()
@@ -41,10 +43,13 @@ namespace KUTSearchEngine
 
         }
 
-        private void BroweButton1_Click(object sender, EventArgs e)
+     
+
+        public void SourceCollectionPath(string collectionPath)
         {
-            folderBrowserDialog1.ShowDialog();
-            string path = folderBrowserDialog1.SelectedPath;
+            //folderBrowserDialog1.ShowDialog();
+            //folderBrowserDialog1.SelectedPath;
+            path = collectionPath;
             DirectoryInfo directoryInfo = new DirectoryInfo(path);
             FileInfo[] file = directoryInfo.GetFiles();
 
@@ -86,23 +91,22 @@ namespace KUTSearchEngine
 
         }
 
-        private void IndexBroweButton1_Click(object sender, EventArgs e)
+        public void IndexBrowse(string selectedIndexPath)
         {
-            folderBrowserDialog2.ShowDialog();
-            indexPath = folderBrowserDialog2.SelectedPath;
+            //folderBrowserDialog2.ShowDialog();
+            indexPath = selectedIndexPath;//folderBrowserDialog2.SelectedPath;
 
             myLuceneApp.CreateIndex(indexPath);
-            int docID = 0;
-            string reminder = "";
+
             Stopwatch stopwatch = new Stopwatch();
 
             stopwatch.Start();
-            foreach (string[] s in fileContent)
+            foreach (var s in fileContent)
             {
 
-                reminder += "Adding doc " + docID + ". to Index\n";
+
                 myLuceneApp.IndexText(s);
-                docID++;
+
             }
             stopwatch.Stop();
 
@@ -139,14 +143,18 @@ namespace KUTSearchEngine
             }
 
             myLuceneApp.CreateSearcher();
-
+            if (checkBox1.Checked)
+            {
+                infoNeed = infoNeed.Replace("\"", "");
+                infoNeed = "\"" + infoNeed + "\"";
+            }
             Lucene.Net.Search.Query query = myLuceneApp.InfoParser(infoNeed);
             string queryText = query.ToString();
             queryText = queryText.Replace("abstract:", "");
-            textBox2.Text = queryText;
+            textBox2.Text =infoNeed+ queryText;
             Lucene.Net.Search.TopDocs result = myLuceneApp.SearchText(query);
 
-            label6.Text = result.TotalHits.ToString();
+            label6.Text = pageDivded.currentPage.ToString()+"/"+result.TotalHits.ToString();
             int rank = 0;
 
             pageDivded.DtSource.Columns.Add("list");
@@ -160,7 +168,7 @@ namespace KUTSearchEngine
                 string bbibliographic = "Bibliographic: " + doc.Get("bibliographic").ToString();
                 string textAbstract = doc.Get("firstSentence").ToString();
 
-                string row = title + "\n" + author + "\n" + bbibliographic + "\n" + textAbstract;
+                string row = title + "\r\n" + author + "\r\n" + bbibliographic + "\r\n" + textAbstract;
 
                 pageDivded.DtSource.Rows.Add(row);
             }
@@ -171,10 +179,10 @@ namespace KUTSearchEngine
             }
             pageDivded.DividedPage();
             dataGridView1.DataSource = pageDivded.LoadPage();
-
+            dataGridView1.Columns["list"].FillWeight = 240;
             dataGridView1.Show();
             myLuceneApp.CleanUpSearcher();
-
+            /*
             DataGridViewLinkColumn column = new DataGridViewLinkColumn();
             column.Name = "Link";
             column.UseColumnTextForLinkValue = true;
@@ -182,8 +190,9 @@ namespace KUTSearchEngine
             column.LinkBehavior = LinkBehavior.HoverUnderline;
             column.TrackVisitedState = true;
             dataGridView1.Columns.Add(column);
-
+            */
         }
+
 
         private void listBox1_SelectedIndexChanged_1(object sender, EventArgs e)
         {
@@ -197,6 +206,7 @@ namespace KUTSearchEngine
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
+            
 
             myLuceneApp.CreateSearcher();
             Lucene.Net.Search.Query query = myLuceneApp.InfoParser(infoNeed);
@@ -204,17 +214,20 @@ namespace KUTSearchEngine
 
             int index = pageDivded.currentPage - 1;
 
-            if (dataGridView1.Columns[e.ColumnIndex].Name == "Link")
+            if (dataGridView1.Columns[e.ColumnIndex].Name == "list")
             {
-                textBox1.Clear();
+                
                 selectedItemIndex = index * 10 + e.RowIndex;
                 Lucene.Net.Documents.Document documents = myLuceneApp.GetSearcher.Doc(result.ScoreDocs[selectedItemIndex].Doc);
                 string abstractText = documents.Get("abstract").ToString();
-                textBox1.Text = abstractText;
-                DataGridViewLinkCell cell = (DataGridViewLinkCell)dataGridView1[e.ColumnIndex, e.RowIndex];
-                cell.LinkVisited = true;
+                GlobalData.abstractContent = abstractText;
+                //DataGridViewLinkCell cell = (DataGridViewLinkCell)dataGridView1[e.ColumnIndex, e.RowIndex];
+                //cell.LinkVisited = true;
             }
             myLuceneApp.CleanUpSearcher();
+
+            AbstractView abstractView = new AbstractView();
+            abstractView.ShowDialog();
 
         }
 
@@ -249,15 +262,73 @@ namespace KUTSearchEngine
 
         private void button1_Click(object sender, EventArgs e)
         {
+            indexPath = @"C:\Users\25091\Documents\647\project\test10";
+            path = @"C:\Users\25091\Documents\647\project\crandocs";
+
+
+
+
+            DirectoryInfo directoryInfo = new DirectoryInfo(path);
+            FileInfo[] file = directoryInfo.GetFiles();
+
+            foreach (FileInfo info in file)
+            {
+
+
+                if (info.Extension.ToLower() == ".txt")
+                {
+                    string content = File.ReadAllText(info.FullName);
+                    string[] delimter = { ".T", ".I", ".A", ".B", ".W" };
+                    string[] contents = content.Split(delimter, StringSplitOptions.None);
+                    string[] newList = new string[6];
+                    Array.Copy(contents, 1, newList, 0, 5);
+                    for (int i = 0; i < contents.Length - 1; i++)
+                    {
+
+                        contents[i] = contents[i].Replace("\n", "").Replace("\r", " ");
+
+
+                    }
+                    newList[newList.Length - 2] = newList[newList.Length - 2].Replace(newList[1], "");
+                    string[] splitAbstract = newList[newList.Length - 2].Split('.');
+                    newList[newList.Length - 1] = splitAbstract[0] + ".";
+                    fileContent.Add(newList);
+                }
+            }
+            myLuceneApp.CreateIndex(indexPath);
+
+            Stopwatch stopwatch = new Stopwatch();
+
+            stopwatch.Start();
+            foreach (string[] s in fileContent)
+            {
+
+               
+                myLuceneApp.IndexText(s);
+
+            }
+            stopwatch.Stop();
+
+            TimeSpan timeSpan = stopwatch.Elapsed;
+            double time = timeSpan.Milliseconds;
+            label2.Text = time + "ms";
+            label3.Text = "All documents added.";
+            myLuceneApp.CleanUpIndexer();
+
+
+
+
+
+
             //StartForm startForm = new StartForm(this);
             //startForm.ShowDialog();
             //this.Hide();
-
+            /*
             this.Enabled = false;
-            StartForm f = new StartForm(this);
+            StartForm f = new StartForm();
             f.Show();
             f.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form2_FormClosing);
-
+            */
         }
         private void Form2_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -286,7 +357,11 @@ namespace KUTSearchEngine
             Stream stream;
             saveFileDialog1.CreatePrompt = true;
             saveFileDialog1.OverwritePrompt = true;
-
+            saveFileDialog1.DefaultExt = "txt";
+            saveFileDialog1.Filter =
+                "Text files (*.txt)|*.txt|All files (*.*)|*.*";
+            saveFileDialog1.InitialDirectory =
+                Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
             myLuceneApp.CreateSearcher();
             Lucene.Net.Search.Query query = myLuceneApp.InfoParser(infoNeed);
             Lucene.Net.Search.TopDocs result = myLuceneApp.SearchText(query);
@@ -307,7 +382,7 @@ namespace KUTSearchEngine
                         foreach (Lucene.Net.Search.ScoreDoc scoreDoc in result.ScoreDocs)
                         {
                             rank++;
-                            oneLine = topicID + "   " + "Q0" + "   " + scoreDoc.Doc.ToString() + "   " + scoreDoc.Score.ToString() + "   " + "0123456798_0987654321_ourteam";
+                            oneLine = topicID + "   " + "Q0" + "   " + rank + "   " + scoreDoc.Doc.ToString() + "   " + scoreDoc.Score.ToString() + "   " + "0123456798_0987654321_ourteam";
                             sw.WriteLine(oneLine);
                         }
                         sw.Flush();
@@ -323,7 +398,7 @@ namespace KUTSearchEngine
                         foreach (Lucene.Net.Search.ScoreDoc scoreDoc in result.ScoreDocs)
                         {
                             rank++;
-                            oneLine = topicID + "   " + "Q0" + "   " + scoreDoc.Doc.ToString() + "   " + scoreDoc.Score.ToString() + "   " + "0123456798_0987654321_ourteam";
+                            oneLine = topicID + "   " + "Q0" + "   " + rank + "   " + scoreDoc.Doc.ToString() + "   " + scoreDoc.Score.ToString() + "   " + "0123456798_0987654321_ourteam";
                             myWritter.WriteLine(oneLine);
                         }
                         myWritter.Flush();
@@ -333,6 +408,11 @@ namespace KUTSearchEngine
                 }
 
             }
+        }
+
+        private void textBox1_TextChanged_1(object sender, EventArgs e)
+        {
+
         }
     }
 
