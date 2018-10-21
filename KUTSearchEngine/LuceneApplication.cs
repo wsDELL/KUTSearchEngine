@@ -20,13 +20,14 @@ namespace KUTSearchEngine
         Lucene.Net.Analysis.Analyzer analyzer;
         Lucene.Net.Index.IndexWriter writer;
         IndexSearcher searcher;
-        QueryParser parser;
+        MultiFieldQueryParser parser;
+        private string[] fileChoice = new string[] { "abstract"};
         //Similarity similarity;
        
         
 
         const Lucene.Net.Util.Version VERSION = Lucene.Net.Util.Version.LUCENE_30;
-        const string TEXT_FN = "abstract";
+        
 
 
         public LuceneAdvancedSearchApplication()
@@ -36,7 +37,8 @@ namespace KUTSearchEngine
             //analyzer = new Lucene.Net.Analysis.SimpleAnalyzer();
             analyzer = new Lucene.Net.Analysis.Standard.StandardAnalyzer(VERSION);
             //analyzer = new Lucene.Net.Analysis.Snowball.SnowballAnalyzer(VERSION, "English");
-            parser = new QueryParser(Lucene.Net.Util.Version.LUCENE_30, TEXT_FN, analyzer);
+            parser = new MultiFieldQueryParser(Lucene.Net.Util.Version.LUCENE_30, fileChoice, analyzer);
+            
             //similarity = new similarity();
 
         }
@@ -127,6 +129,18 @@ namespace KUTSearchEngine
             get
             {
                 return searcher;
+            }
+        }
+
+        public string[] FileChoice
+        {
+            set
+            {
+                fileChoice = value;
+            }
+            get
+            {
+                return fileChoice;
             }
         }
 

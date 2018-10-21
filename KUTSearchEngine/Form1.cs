@@ -135,6 +135,8 @@ namespace KUTSearchEngine
             dataGridView1.Columns.Clear();
             infoNeed = InfoNeedInput.Text;
 
+
+
             if (infoNeed == "")
             {
                 MessageBox.Show("Invalid input!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -413,6 +415,12 @@ namespace KUTSearchEngine
         private void textBox1_TextChanged_1(object sender, EventArgs e)
         {
 
+        }
+
+        private void advancedSearchButton_Click(object sender, EventArgs e)
+        {
+            advandcedSearch advandcedSearch = new advandcedSearch();
+            advandcedSearch.ShowDialog();
         }
     }
 

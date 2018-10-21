@@ -85,6 +85,7 @@
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
+            this.advancedSearchButton = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
@@ -584,6 +585,17 @@
             this.label4.TabIndex = 38;
             this.label4.Text = "Results:";
             // 
+            // advancedSearchButton
+            // 
+            this.advancedSearchButton.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.advancedSearchButton.Location = new System.Drawing.Point(873, 103);
+            this.advancedSearchButton.Name = "advancedSearchButton";
+            this.advancedSearchButton.Size = new System.Drawing.Size(167, 32);
+            this.advancedSearchButton.TabIndex = 39;
+            this.advancedSearchButton.Text = "Advanced Search";
+            this.advancedSearchButton.UseVisualStyleBackColor = true;
+            this.advancedSearchButton.Click += new System.EventHandler(this.advancedSearchButton_Click);
+            // 
             // Form1
             // 
             this.AllowDrop = true;
@@ -592,6 +604,7 @@
             this.AutoScroll = true;
             this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(1096, 737);
+            this.Controls.Add(this.advancedSearchButton);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.checkBox1);
@@ -682,6 +695,7 @@
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Button advancedSearchButton;
     }
 }
 
