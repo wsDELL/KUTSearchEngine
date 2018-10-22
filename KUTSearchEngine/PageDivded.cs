@@ -119,7 +119,25 @@ namespace KUTSearchEngine
             currentPage = 1;
 
             LoadPage();//调用加载数据的方法
+
         }
+
+        public string PageNumber()
+        {
+            string pagenumber = currentPage.ToString();
+
+            return pagenumber + "/" + PageCount.ToString();
+        }
+        public string IntotalPage()
+        {
+            pageCount = (recordCount / pageSize);
+            if ((recordCount % pageSize) > 0)
+            {
+                pageCount++;
+            }
+            return currentPage.ToString() + "/" + pageCount.ToString();
+        }
+
         public void ClearUpDataTable()
         {
             dtSource.Clear();
