@@ -25,6 +25,7 @@ namespace KUTSearchEngine
         private string infoNeed = "";
         private List<string> file = new List<string>();
         private Dictionary<string, string[]> thesaurus = new Dictionary<string, string[]>();
+        private string wordnetPath;
 
 
 
@@ -137,6 +138,7 @@ namespace KUTSearchEngine
             pageDivded.DtSource.Columns.Clear();
             dataGridView1.Columns.Clear();
             file.Clear();
+            thesaurus.Clear();
             infoNeed = InfoNeedInput.Text;
             Stopwatch stopwatch = new Stopwatch();
 
@@ -171,7 +173,13 @@ namespace KUTSearchEngine
                 infoNeed = "\"" + infoNeed + "\"";
             }
 
+
+
+
+
             string expandedQueryItems = "";
+            wordnetPath = Directory.GetCurrentDirectory() + "\\dict";
+            GlobalData.wordnetDBPath = wordnetPath;
             if (checkBox4.Checked)
             {
                 string[] queryExpansionTerms = infoNeed.Split(' ');
@@ -210,7 +218,7 @@ namespace KUTSearchEngine
             double time = timeSpan.Milliseconds;
 
             searchTime.Text = time.ToString()+"ms";
-            label6.Text = pageDivded.currentPage.ToString()+"/"+result.TotalHits.ToString();
+           // label6.Text = pageDivded.currentPage.ToString()+"/"+result.TotalHits.ToString();
             int rank = 0;
 
             pageDivded.DtSource.Columns.Add("list");
@@ -237,6 +245,7 @@ namespace KUTSearchEngine
             dataGridView1.DataSource = pageDivded.LoadPage();
             dataGridView1.Columns["list"].FillWeight = 240;
             dataGridView1.Show();
+            label6.Text = pageDivded.PageNumber();
             myLuceneApp.CleanUpSearcher();
             /*
             DataGridViewLinkColumn column = new DataGridViewLinkColumn();
@@ -296,24 +305,28 @@ namespace KUTSearchEngine
         {
             pageDivded.currentPage = 1;
             dataGridView1.DataSource = pageDivded.LoadPage();
+            label6.Text = pageDivded.PageNumber();
         }
 
         private void nextPage_Click_1(object sender, EventArgs e)
         {
             pageDivded.currentPage++;
             dataGridView1.DataSource = pageDivded.LoadPage();
+            label6.Text = pageDivded.PageNumber();
         }
 
         private void previousPage_Click_1(object sender, EventArgs e)
         {
             pageDivded.currentPage--;
             dataGridView1.DataSource = pageDivded.LoadPage();
+            label6.Text = pageDivded.PageNumber();
         }
 
         private void lastPage_Click_1(object sender, EventArgs e)
         {
             pageDivded.currentPage = pageDivded.pageCount;
             dataGridView1.DataSource = pageDivded.LoadPage();
+            label6.Text = pageDivded.PageNumber();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -493,6 +506,11 @@ namespace KUTSearchEngine
         }
 
         private void radioButton3_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label6_Click(object sender, EventArgs e)
         {
 
         }

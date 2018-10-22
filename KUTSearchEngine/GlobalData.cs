@@ -11,5 +11,6 @@ namespace KUTSearchEngine
         public static string soureCollectionPath;
         public static string createIndexPath;
         public static string abstractContent;
+        public static string wordnetDBPath;
     }
 }

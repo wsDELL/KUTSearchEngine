@@ -120,6 +120,10 @@ namespace KUTSearchEngine
 
             LoadPage();//调用加载数据的方法
         }
+        public string PageNumber()
+        {
+            return currentPage.ToString() + "/" + pageCount.ToString();
+        }
         public void ClearUpDataTable()
         {
             dtSource.Clear();

@@ -22,11 +22,14 @@ namespace KUTSearchEngine
 
         public void CreateWordnetEngine()
         {
-            directory = Directory.GetCurrentDirectory();
+            directory = GlobalData.wordnetDBPath;
             wordnet.LoadFromDirectory(directory);
         }
         public string[] GetSynnetList(string word)
         {
+
+
+
             var synSetList = wordnet.GetSynSets(word);
             int listNumber = synSetList.Count;
             List<string> result = synSetList[0].Words;
