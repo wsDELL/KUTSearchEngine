@@ -10,6 +10,7 @@ using Lucene.Net.Store; //for Directory
 using Lucene.Net.Search; // for IndexSearcher
 using Lucene.Net.QueryParsers;  // for QueryParser
 using Lucene.Net.Analysis.Snowball; // for snowball analyser
+using Syn.WordNet;
 
 
 namespace KUTSearchEngine

@@ -12,7 +12,7 @@ namespace KUTSearchEngine
     {
 
         private string directory;
-        private WordNetEngine wordnet;
+        private WordNetEngine wordnet=new WordNetEngine();
 
         public WordnetSynset()
         {
@@ -22,20 +22,35 @@ namespace KUTSearchEngine
 
         public void CreateWordnetEngine()
         {
-            directory = Directory.GetCurrentDirectory();
+            directory = GlobalData.wordnetDBPath;
             wordnet.LoadFromDirectory(directory);
         }
         public string[] GetSynnetList(string word)
         {
+
+
+
             var synSetList = wordnet.GetSynSets(word);
             int listNumber = synSetList.Count;
-            List<string> result = synSetList[0].Words;
-            for (int i = 1; i < synSetList.Count; i++)
+            string[] words = new[] { "" };
+            if (listNumber ==0)
             {
-                result = result.Union(synSetList[i].Words).ToList<string>();
+                words[0] = word;
+                return words;
+
             }
-            string[] words = result.ToArray();
-            return words;
+            else
+            {
+                List<string> result = synSetList[0].Words;
+                for (int i = 1; i < synSetList.Count; i++)
+                {
+                    result = result.Union(synSetList[i].Words).ToList<string>();
+                }
+                words = result.ToArray();
+                return words;
+
+            }
+           
         }
     }
 }

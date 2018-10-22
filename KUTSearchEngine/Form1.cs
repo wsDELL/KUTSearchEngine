@@ -25,6 +25,7 @@ namespace KUTSearchEngine
         private string infoNeed = "";
         private List<string> file = new List<string>();
         private Dictionary<string, string[]> thesaurus = new Dictionary<string, string[]>();
+        private string wordnetPath;
 
 
 
@@ -137,6 +138,7 @@ namespace KUTSearchEngine
             pageDivded.DtSource.Columns.Clear();
             dataGridView1.Columns.Clear();
             file.Clear();
+            thesaurus.Clear();
             infoNeed = InfoNeedInput.Text;
             Stopwatch stopwatch = new Stopwatch();
 
@@ -171,7 +173,13 @@ namespace KUTSearchEngine
                 infoNeed = "\"" + infoNeed + "\"";
             }
 
+
+
+
+
             string expandedQueryItems = "";
+            wordnetPath = Directory.GetCurrentDirectory() + "\\dict";
+            GlobalData.wordnetDBPath = wordnetPath;
             if (checkBox4.Checked)
             {
                 string[] queryExpansionTerms = infoNeed.Split(' ');
