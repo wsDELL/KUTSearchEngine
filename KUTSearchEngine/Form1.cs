@@ -218,7 +218,6 @@ namespace KUTSearchEngine
             double time = timeSpan.Milliseconds;
 
             searchTime.Text = time.ToString()+"ms";
-            label6.Text = pageDivded.currentPage.ToString()+"/"+result.TotalHits.ToString();
             int rank = 0;
 
             pageDivded.DtSource.Columns.Add("list");
@@ -245,6 +244,7 @@ namespace KUTSearchEngine
             dataGridView1.DataSource = pageDivded.LoadPage();
             dataGridView1.Columns["list"].FillWeight = 240;
             dataGridView1.Show();
+            label6.Text = pageDivded.PageNumber();
             myLuceneApp.CleanUpSearcher();
             /*
             DataGridViewLinkColumn column = new DataGridViewLinkColumn();
@@ -304,24 +304,28 @@ namespace KUTSearchEngine
         {
             pageDivded.currentPage = 1;
             dataGridView1.DataSource = pageDivded.LoadPage();
+            label6.Text = pageDivded.PageNumber();
         }
 
         private void nextPage_Click_1(object sender, EventArgs e)
         {
             pageDivded.currentPage++;
             dataGridView1.DataSource = pageDivded.LoadPage();
+            label6.Text = pageDivded.PageNumber();
         }
 
         private void previousPage_Click_1(object sender, EventArgs e)
         {
             pageDivded.currentPage--;
             dataGridView1.DataSource = pageDivded.LoadPage();
+            label6.Text = pageDivded.PageNumber();
         }
 
         private void lastPage_Click_1(object sender, EventArgs e)
         {
             pageDivded.currentPage = pageDivded.pageCount;
             dataGridView1.DataSource = pageDivded.LoadPage();
+            label6.Text = pageDivded.PageNumber();
         }
 
         private void button1_Click(object sender, EventArgs e)
