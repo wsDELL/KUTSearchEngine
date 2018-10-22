@@ -8,13 +8,13 @@ using FieldInvertState = Lucene.Net.Index.FieldInvertState;
 
 namespace KUTSearchEngine
 {
-    class similarity: DefaultSimilarity
+    class Newsimilarity: DefaultSimilarity
     {
         /// <summary>Implemented as <c>sqrt(freq)</c>. </summary>
         public override float Tf(float freq)
         {
-            //return (float)System.Math.Sqrt(freq);
-            return 1;
+            return (float)System.Math.Sqrt(freq);
+            
         }
     }
 }

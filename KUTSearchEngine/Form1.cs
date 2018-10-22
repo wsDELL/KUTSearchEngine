@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.IO;
 using System.Diagnostics;
 
+
 namespace KUTSearchEngine
 {
     public partial class Form1 : Form
@@ -22,7 +23,9 @@ namespace KUTSearchEngine
         internal PageDivded pageDivded = new PageDivded();
         internal int selectedItemIndex = 0;
         private string infoNeed = "";
-        
+        private List<string> file = new List<string>();
+        private Dictionary<string, string[]> thesaurus = new Dictionary<string, string[]>();
+
 
 
         public Form1()
@@ -133,7 +136,11 @@ namespace KUTSearchEngine
             pageDivded.ClearUpDataTable();
             pageDivded.DtSource.Columns.Clear();
             dataGridView1.Columns.Clear();
+            file.Clear();
             infoNeed = InfoNeedInput.Text;
+            Stopwatch stopwatch = new Stopwatch();
+
+
 
             if (infoNeed == "")
             {
@@ -142,18 +149,48 @@ namespace KUTSearchEngine
                 return;
             }
 
+
+            file.Add("abstract");
+            if(checkBox2.Checked)
+            {
+                file.Add("title");
+            }
+            if(checkBox3.Checked)
+            {
+                file.Add("author");
+            }
+
+            
+            string[] fileChoice= file.ToArray();
+            myLuceneApp.createParser(fileChoice);
+
             myLuceneApp.CreateSearcher();
             if (checkBox1.Checked)
             {
                 infoNeed = infoNeed.Replace("\"", "");
                 infoNeed = "\"" + infoNeed + "\"";
             }
+
+
+            string[] queryExpansionTerms = infoNeed.Split(' ');
+            thesaurus= myLuceneApp.CreateThesaurus(queryExpansionTerms);
+            myLuceneApp.GetExpandedQuery()
+
+
             Lucene.Net.Search.Query query = myLuceneApp.InfoParser(infoNeed);
             string queryText = query.ToString();
             queryText = queryText.Replace("abstract:", "");
             textBox2.Text =infoNeed+ queryText;
-            Lucene.Net.Search.TopDocs result = myLuceneApp.SearchText(query);
 
+
+            stopwatch.Start();
+            Lucene.Net.Search.TopDocs result = myLuceneApp.SearchText(query);
+            stopwatch.Stop();
+
+            TimeSpan timeSpan = stopwatch.Elapsed;
+            double time = timeSpan.Milliseconds;
+
+            searchTime.Text = time.ToString()+"ms";
             label6.Text = pageDivded.currentPage.ToString()+"/"+result.TotalHits.ToString();
             int rank = 0;
 
@@ -369,6 +406,7 @@ namespace KUTSearchEngine
             string oneLine = "";
             int rank = 0;
             string topicID = textBox3.Text;
+            string gropunumber = "0123456798_0987654321_ourteam";
             //SaveFileDialog save = new SaveFileDialog();
 
 
@@ -382,7 +420,7 @@ namespace KUTSearchEngine
                         foreach (Lucene.Net.Search.ScoreDoc scoreDoc in result.ScoreDocs)
                         {
                             rank++;
-                            oneLine = topicID + "   " + "Q0" + "   " + rank + "   " + scoreDoc.Doc.ToString() + "   " + scoreDoc.Score.ToString() + "   " + "0123456798_0987654321_ourteam";
+                            oneLine = string.Format("{0}\tQ0{1,10}\t{2,5}\t{3,15}\t{4,30}", topicID, scoreDoc.Doc.ToString(), rank, scoreDoc.Score.ToString(), gropunumber);
                             sw.WriteLine(oneLine);
                         }
                         sw.Flush();
@@ -398,7 +436,7 @@ namespace KUTSearchEngine
                         foreach (Lucene.Net.Search.ScoreDoc scoreDoc in result.ScoreDocs)
                         {
                             rank++;
-                            oneLine = topicID + "   " + "Q0" + "   " + rank + "   " + scoreDoc.Doc.ToString() + "   " + scoreDoc.Score.ToString() + "   " + "0123456798_0987654321_ourteam";
+                            oneLine = string.Format("{0}\tQ0{1,10}\t{2,5}\t{3,15}\t{4,30}",topicID, scoreDoc.Doc.ToString(), rank, scoreDoc.Score.ToString(),gropunumber);
                             myWritter.WriteLine(oneLine);
                         }
                         myWritter.Flush();
@@ -431,6 +469,11 @@ namespace KUTSearchEngine
         }
 
         private void label7_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void radioButton3_CheckedChanged(object sender, EventArgs e)
         {
 
         }
