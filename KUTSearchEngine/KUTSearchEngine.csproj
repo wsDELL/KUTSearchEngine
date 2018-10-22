@@ -48,10 +48,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>D8DB558799CFB97454B1411BC2C14D4AD368B8F8</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>E78215A09371E2E95A7F9BDBD19A57315C46FCB9</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>KUTSearchEngine_TemporaryKey.pfx</ManifestKeyFile>
+    <ManifestKeyFile>KUTSearchEngine_2_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
     <GenerateManifests>true</GenerateManifests>
@@ -157,6 +157,7 @@
     <EmbeddedResource Include="StartForm.resx">
       <DependentUpon>StartForm.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="KUTSearchEngine_2_TemporaryKey.pfx" />
     <None Include="KUTSearchEngine_TemporaryKey.pfx" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
