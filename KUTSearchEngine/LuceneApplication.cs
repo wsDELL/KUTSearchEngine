@@ -55,6 +55,7 @@ namespace KUTSearchEngine
         public void IndexText(string[] text)
         {
             Lucene.Net.Documents.Document doc = new Document();
+            
             doc.Add(new Field("id", text[0], Field.Store.YES, Field.Index.ANALYZED, Field.TermVector.YES));
             doc.Add(new Field("title", text[1], Field.Store.YES, Field.Index.ANALYZED, Field.TermVector.YES));
             doc.Add(new Field("author", text[2], Field.Store.YES, Field.Index.ANALYZED, Field.TermVector.YES));
@@ -129,17 +130,46 @@ namespace KUTSearchEngine
         /// <param name="thesaurus">A thesaurus of stems and associated terms</param>
         /// <param name="query">a query to stem</param>
         /// <returns>the query expanded with words that share the stem</returns>
-        public string GetExpandedQuery(Dictionary<string, string[]> thesaurus, string queryTerm)
+        public string GetExpandedQuery(Dictionary<string, string[]> thesaurus, string[] queryExpansionTerms)
         {
             string expandedQuery = "";
-            if (thesaurus.ContainsKey(queryTerm))
+            foreach(string queryTerm in queryExpansionTerms)
             {
-                string[] array = thesaurus[queryTerm];
-                foreach (string a in array)
+                if (thesaurus.ContainsKey(queryTerm))
                 {
-                    expandedQuery += " " + a;
+                    string[] array = thesaurus[queryTerm];
+                    foreach (string a in array)
+                    {
+                        expandedQuery += " " + a;
+                    }
                 }
             }
+           
+            return expandedQuery;
+        }
+
+        public string GetWeightedExpandedQuery(Dictionary<string, string[]> thesausus, string[] queryExpansionTerms)
+        {
+            string expandedQuery = "";
+            foreach (string query in queryExpansionTerms)
+            {
+                if (thesausus.ContainsKey(query))
+                {
+                    bool first = true;
+                    string[] array = thesausus[query];
+                    foreach (string a in array)
+                    {
+                        expandedQuery += " " + a;
+                        if (first)
+                        {
+                            expandedQuery += "^5";
+                            first = false;
+                        }
+                    }
+                }
+
+            }
+         
             return expandedQuery;
         }
 

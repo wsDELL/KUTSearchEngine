@@ -171,10 +171,29 @@ namespace KUTSearchEngine
                 infoNeed = "\"" + infoNeed + "\"";
             }
 
+            string expandedQueryItems = "";
+            if (checkBox4.Checked)
+            {
+                string[] queryExpansionTerms = infoNeed.Split(' ');
+                thesaurus = myLuceneApp.CreateThesaurus(queryExpansionTerms);
+                expandedQueryItems = myLuceneApp.GetExpandedQuery(thesaurus, queryExpansionTerms);
+                infoNeed = expandedQueryItems;
+            }
+            else if(checkBox5.Checked && checkBox4.Checked)
+            {
+                string[] queryExpansionTerms = infoNeed.Split(' ');
+                thesaurus = myLuceneApp.CreateThesaurus(queryExpansionTerms);
+                expandedQueryItems= myLuceneApp.GetWeightedExpandedQuery(thesaurus, queryExpansionTerms);
+                infoNeed = expandedQueryItems;
+            }
+            else if(checkBox5.Checked)
+            {
+                MessageBox.Show("You only can choose ", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            
+            
 
-            string[] queryExpansionTerms = infoNeed.Split(' ');
-            thesaurus= myLuceneApp.CreateThesaurus(queryExpansionTerms);
-            myLuceneApp.GetExpandedQuery()
 
 
             Lucene.Net.Search.Query query = myLuceneApp.InfoParser(infoNeed);

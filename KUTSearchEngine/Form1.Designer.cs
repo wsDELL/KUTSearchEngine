@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.startIndex = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
@@ -84,7 +84,6 @@
             this.queryIdentificationReminder = new System.Windows.Forms.Label();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.label7 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
@@ -94,6 +93,9 @@
             this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.checkBox3 = new System.Windows.Forms.CheckBox();
             this.searchTime = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.checkBox4 = new System.Windows.Forms.CheckBox();
+            this.checkBox5 = new System.Windows.Forms.CheckBox();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
@@ -436,25 +438,25 @@
             this.dataGridView1.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.ColumnHeadersVisible = false;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Times New Roman", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft;
+            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("Times New Roman", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle7;
             this.dataGridView1.GridColor = System.Drawing.SystemColors.WindowFrame;
-            this.dataGridView1.Location = new System.Drawing.Point(226, 309);
+            this.dataGridView1.Location = new System.Drawing.Point(226, 268);
             this.dataGridView1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersVisible = false;
             this.dataGridView1.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.NullValue = "Unknown";
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle8.NullValue = "Unknown";
+            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle8;
             this.dataGridView1.RowTemplate.Height = 24;
             this.dataGridView1.Size = new System.Drawing.Size(763, 536);
             this.dataGridView1.StandardTab = true;
@@ -464,7 +466,7 @@
             // firstPage
             // 
             this.firstPage.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.firstPage.Location = new System.Drawing.Point(362, 856);
+            this.firstPage.Location = new System.Drawing.Point(362, 815);
             this.firstPage.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.firstPage.Name = "firstPage";
             this.firstPage.Size = new System.Drawing.Size(85, 26);
@@ -476,7 +478,7 @@
             // nextPage
             // 
             this.nextPage.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.nextPage.Location = new System.Drawing.Point(692, 856);
+            this.nextPage.Location = new System.Drawing.Point(692, 815);
             this.nextPage.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.nextPage.Name = "nextPage";
             this.nextPage.Size = new System.Drawing.Size(80, 28);
@@ -488,7 +490,7 @@
             // previousPage
             // 
             this.previousPage.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.previousPage.Location = new System.Drawing.Point(455, 856);
+            this.previousPage.Location = new System.Drawing.Point(455, 815);
             this.previousPage.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.previousPage.Name = "previousPage";
             this.previousPage.Size = new System.Drawing.Size(96, 26);
@@ -500,7 +502,7 @@
             // lastPage
             // 
             this.lastPage.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.lastPage.Location = new System.Drawing.Point(780, 856);
+            this.lastPage.Location = new System.Drawing.Point(780, 815);
             this.lastPage.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.lastPage.Name = "lastPage";
             this.lastPage.Size = new System.Drawing.Size(80, 28);
@@ -525,7 +527,7 @@
             this.saveResultButton.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.saveResultButton.Font = new System.Drawing.Font("Calibri", 11F);
             this.saveResultButton.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.saveResultButton.Location = new System.Drawing.Point(873, 905);
+            this.saveResultButton.Location = new System.Drawing.Point(873, 864);
             this.saveResultButton.Name = "saveResultButton";
             this.saveResultButton.Size = new System.Drawing.Size(125, 30);
             this.saveResultButton.TabIndex = 30;
@@ -547,7 +549,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(601, 862);
+            this.label6.Location = new System.Drawing.Point(601, 821);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(34, 16);
             this.label6.TabIndex = 32;
@@ -555,7 +557,7 @@
             // 
             // textBox3
             // 
-            this.textBox3.Location = new System.Drawing.Point(555, 905);
+            this.textBox3.Location = new System.Drawing.Point(555, 864);
             this.textBox3.Multiline = true;
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(301, 30);
@@ -565,7 +567,7 @@
             // 
             this.queryIdentificationReminder.AutoSize = true;
             this.queryIdentificationReminder.Font = new System.Drawing.Font("Calibri", 11F);
-            this.queryIdentificationReminder.Location = new System.Drawing.Point(236, 903);
+            this.queryIdentificationReminder.Location = new System.Drawing.Point(236, 862);
             this.queryIdentificationReminder.Name = "queryIdentificationReminder";
             this.queryIdentificationReminder.Size = new System.Drawing.Size(304, 23);
             this.queryIdentificationReminder.TabIndex = 35;
@@ -593,24 +595,13 @@
             this.label1.TabIndex = 37;
             this.label1.Text = "Query:";
             // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Calibri", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(146, 280);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(74, 23);
-            this.label4.TabIndex = 38;
-            this.label4.Text = "Results:";
-            // 
             // comboBox1
             // 
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Items.AddRange(new object[] {
-            "level1",
-            "level2",
-            "level3"});
-            this.comboBox1.Location = new System.Drawing.Point(555, 169);
+            "query expansion",
+            "weighted query"});
+            this.comboBox1.Location = new System.Drawing.Point(555, 165);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(121, 23);
             this.comboBox1.TabIndex = 39;
@@ -665,7 +656,7 @@
             // checkBox2
             // 
             this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(731, 107);
+            this.checkBox2.Location = new System.Drawing.Point(555, 107);
             this.checkBox2.Name = "checkBox2";
             this.checkBox2.Size = new System.Drawing.Size(55, 20);
             this.checkBox2.TabIndex = 49;
@@ -675,7 +666,7 @@
             // checkBox3
             // 
             this.checkBox3.AutoSize = true;
-            this.checkBox3.Location = new System.Drawing.Point(792, 107);
+            this.checkBox3.Location = new System.Drawing.Point(616, 107);
             this.checkBox3.Name = "checkBox3";
             this.checkBox3.Size = new System.Drawing.Size(69, 20);
             this.checkBox3.TabIndex = 50;
@@ -692,6 +683,36 @@
             this.searchTime.TabIndex = 52;
             this.searchTime.Text = "Searching time...";
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Calibri", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(146, 268);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(74, 23);
+            this.label4.TabIndex = 38;
+            this.label4.Text = "Results:";
+            // 
+            // checkBox4
+            // 
+            this.checkBox4.AutoSize = true;
+            this.checkBox4.Location = new System.Drawing.Point(701, 106);
+            this.checkBox4.Name = "checkBox4";
+            this.checkBox4.Size = new System.Drawing.Size(127, 20);
+            this.checkBox4.TabIndex = 53;
+            this.checkBox4.Text = "Query Expansion";
+            this.checkBox4.UseVisualStyleBackColor = true;
+            // 
+            // checkBox5
+            // 
+            this.checkBox5.AutoSize = true;
+            this.checkBox5.Location = new System.Drawing.Point(834, 107);
+            this.checkBox5.Name = "checkBox5";
+            this.checkBox5.Size = new System.Drawing.Size(121, 20);
+            this.checkBox5.TabIndex = 54;
+            this.checkBox5.Text = "Weighted Query";
+            this.checkBox5.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AllowDrop = true;
@@ -700,7 +721,9 @@
             this.AutoScroll = true;
             this.AutoSize = true;
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.ClientSize = new System.Drawing.Size(1096, 953);
+            this.ClientSize = new System.Drawing.Size(1096, 907);
+            this.Controls.Add(this.checkBox5);
+            this.Controls.Add(this.checkBox4);
             this.Controls.Add(this.searchTime);
             this.Controls.Add(this.checkBox3);
             this.Controls.Add(this.checkBox2);
@@ -800,7 +823,6 @@
         private System.Windows.Forms.Label queryIdentificationReminder;
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Button button2;
@@ -810,6 +832,9 @@
         private System.Windows.Forms.CheckBox checkBox2;
         private System.Windows.Forms.CheckBox checkBox3;
         private System.Windows.Forms.Label searchTime;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.CheckBox checkBox4;
+        private System.Windows.Forms.CheckBox checkBox5;
     }
 }
 
