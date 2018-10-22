@@ -20,24 +20,19 @@ namespace KUTSearchEngine
         Lucene.Net.Analysis.Analyzer analyzer;
         Lucene.Net.Index.IndexWriter writer;
         IndexSearcher searcher;
-        QueryParser parser;
-        //Similarity similarity;
-       
-        
+        MultiFieldQueryParser parser;
+        Similarity similarity;
+        WordnetSynset wordnetSynset =new WordnetSynset();
 
         const Lucene.Net.Util.Version VERSION = Lucene.Net.Util.Version.LUCENE_30;
-        const string TEXT_FN = "abstract";
-
-
         public LuceneAdvancedSearchApplication()
         {
             luceneIndexDirectory = null;
             writer = null;
             //analyzer = new Lucene.Net.Analysis.SimpleAnalyzer();
             analyzer = new Lucene.Net.Analysis.Standard.StandardAnalyzer(VERSION);
-            //analyzer = new Lucene.Net.Analysis.Snowball.SnowballAnalyzer(VERSION, "English");
-            parser = new QueryParser(Lucene.Net.Util.Version.LUCENE_30, TEXT_FN, analyzer);
-            //similarity = new similarity();
+            //analyzer = new Lucene.Net.Analysis.Snowball.SnowballAnalyzer(VERSION, "English");           
+            similarity = new Newsimilarity();
 
         }
         /// <summary>
@@ -50,7 +45,7 @@ namespace KUTSearchEngine
             luceneIndexDirectory = Lucene.Net.Store.FSDirectory.Open(indexPath);
             IndexWriter.MaxFieldLength mfl = new IndexWriter.MaxFieldLength(IndexWriter.DEFAULT_MAX_FIELD_LENGTH);
             writer = new Lucene.Net.Index.IndexWriter(luceneIndexDirectory, analyzer, true, mfl);
-            //writer.SetSimilarity (similarity);
+            writer.SetSimilarity (similarity);
         }
 
         /// <summary>
@@ -89,13 +84,18 @@ namespace KUTSearchEngine
             searcher = new IndexSearcher(luceneIndexDirectory);
         }
 
+
+        public void createParser(string [] fileChoice)
+        {
+            parser = new MultiFieldQueryParser(Lucene.Net.Util.Version.LUCENE_30, fileChoice, analyzer);
+        }
+
         /// <summary>
         /// Searches the index for the querytext
         /// </summary>
         /// <param name="querytext">The text to search the index</param>
         public Query InfoParser(string infoNeed)
         {
-            
             infoNeed = infoNeed.ToLower();
             Query query = parser.Parse(infoNeed);
             return query;
@@ -103,23 +103,44 @@ namespace KUTSearchEngine
 
         public TopDocs SearchText(Query query)
         {
-
-
             TopDocs results = searcher.Search(query, 1400);
-            //searcher.Similarity = similarity;
+            searcher.Similarity = similarity;
             return results;
-
-
         }
 
-        public Dictionary<string, string[]> CreateThesaurus()
+        public Dictionary<string, string[]> CreateThesaurus(string[] infoqueryExpansionTerms)
         {
             Dictionary<string, string[]> thesaurus = new Dictionary<string, string[]>();
+            wordnetSynset.CreateWordnetEngine();
 
-            thesaurus.Add("walk", new[] { "walk", "walked", "walking" });
-            thesaurus.Add("run", new[] { "run", "running" });
-            thesaurus.Add("love", new[] { "love", "lovely", "loving" });
+            foreach (string word in infoqueryExpansionTerms)
+            {
+                string[] wordExansion= wordnetSynset.GetSynnetList(word);
+                thesaurus.Add(word, wordExansion);
+            }
+
+           
+
             return thesaurus;
+        }
+        /// <summary>
+        /// Expands the query with terms in the thesaurus
+        /// </summary>
+        /// <param name="thesaurus">A thesaurus of stems and associated terms</param>
+        /// <param name="query">a query to stem</param>
+        /// <returns>the query expanded with words that share the stem</returns>
+        public string GetExpandedQuery(Dictionary<string, string[]> thesaurus, string queryTerm)
+        {
+            string expandedQuery = "";
+            if (thesaurus.ContainsKey(queryTerm))
+            {
+                string[] array = thesaurus[queryTerm];
+                foreach (string a in array)
+                {
+                    expandedQuery += " " + a;
+                }
+            }
+            return expandedQuery;
         }
 
         public Searcher GetSearcher 

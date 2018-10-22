@@ -131,7 +131,7 @@
     <Compile Include="LuceneApplication.cs" />
     <Compile Include="PageDivded.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="similarity.cs" />
+    <Compile Include="Newsimilarity.cs" />
     <Compile Include="StartForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -139,6 +139,7 @@
       <DependentUpon>StartForm.cs</DependentUpon>
     </Compile>
     <Compile Include="SynWordnet.cs" />
+    <Compile Include="wordnetSynset.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
