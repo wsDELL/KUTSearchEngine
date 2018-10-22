@@ -124,10 +124,9 @@ namespace KUTSearchEngine
 
         public string PageNumber()
         {
-            string pagenumber = currentPage.ToString();
-
-            return pagenumber + "/" + PageCount.ToString();
+            return currentPage.ToString() + "/" + PageCount.ToString();
         }
+
         public string IntotalPage()
         {
             pageCount = (recordCount / pageSize);
