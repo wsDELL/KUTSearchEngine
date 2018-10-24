@@ -166,8 +166,8 @@ namespace KUTSearchEngine
                 string author = "Author: " + doc.Get("author").ToString();
                 string bbibliographic = "Bibliographic: " + doc.Get("bibliographic").ToString();
                 string textAbstract = doc.Get("firstSentence").ToString();
-
-                string row = title + "\r\n" + author + "\r\n" + bbibliographic + "\r\n" + textAbstract;
+                string scoing ="Scoring"+ scoreDoc.Score.ToString();
+                string row = title + "\r\n" + author + "\r\n" + bbibliographic + "\r\n" + textAbstract+"\r\n"+scoing;
 
                 pageDivded.DtSource.Rows.Add(row);
             }

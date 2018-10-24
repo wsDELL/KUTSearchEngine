@@ -32,8 +32,8 @@ namespace KUTSearchEngine
             luceneIndexDirectory = null;
             writer = null;
             //analyzer = new Lucene.Net.Analysis.SimpleAnalyzer();
-            analyzer = new Lucene.Net.Analysis.Standard.StandardAnalyzer(VERSION);
-            //analyzer = new Lucene.Net.Analysis.Snowball.SnowballAnalyzer(VERSION, "English");           
+            //analyzer = new Lucene.Net.Analysis.Standard.StandardAnalyzer(VERSION);
+            analyzer = new Lucene.Net.Analysis.Snowball.SnowballAnalyzer(VERSION, "English");           
             similarity = new Newsimilarity();
 
         }
@@ -57,17 +57,17 @@ namespace KUTSearchEngine
         public void IndexText(string[] text)
         {
             Lucene.Net.Documents.Document doc = new Document();
-            Field id = new Field("id", text[0], Field.Store.YES, Field.Index.ANALYZED, Field.TermVector.YES);
+            Field id = new Field("id", text[0], Field.Store.YES, Field.Index.ANALYZED, Field.TermVector.WITH_OFFSETS);
             doc.Add(id);
-            Field title = new Field("title", text[1], Field.Store.YES, Field.Index.ANALYZED, Field.TermVector.YES);
+            Field title = new Field("title", text[1], Field.Store.YES, Field.Index.ANALYZED, Field.TermVector.WITH_OFFSETS);
             doc.Add(title);
-            Field author = new Field("author", text[2], Field.Store.YES, Field.Index.ANALYZED, Field.TermVector.YES);
+            Field author = new Field("author", text[2], Field.Store.YES, Field.Index.ANALYZED, Field.TermVector.WITH_OFFSETS);
             doc.Add(author);
-            Field bibliographic = new Field("bibliographic", text[3], Field.Store.YES, Field.Index.ANALYZED, Field.TermVector.YES);
+            Field bibliographic = new Field("bibliographic", text[3], Field.Store.YES, Field.Index.ANALYZED, Field.TermVector.WITH_OFFSETS);
             doc.Add(bibliographic);
-            Field abstractContent = new Field("abstract", text[4], Field.Store.YES, Field.Index.ANALYZED, Field.TermVector.YES);
+            Field abstractContent = new Field("abstract", text[4], Field.Store.YES, Field.Index.ANALYZED, Field.TermVector.WITH_OFFSETS);
             doc.Add(abstractContent);
-            Field firstSentence = new Field("firstSentence", text[5], Field.Store.YES, Field.Index.ANALYZED, Field.TermVector.YES);
+            Field firstSentence = new Field("firstSentence", text[5], Field.Store.YES, Field.Index.ANALYZED, Field.TermVector.WITH_OFFSETS);
             doc.Add(firstSentence);
             title.Boost=2.0f;
             author.Boost = 2.0f;
@@ -97,7 +97,8 @@ namespace KUTSearchEngine
 
         public void createParser(string [] fileChoice)
         {
-            parser = new MultiFieldQueryParser(Lucene.Net.Util.Version.LUCENE_30, fileChoice, analyzer);
+            string[] array = new string[] { "title", "author", "bibliographic", "abstract" };
+            parser = new MultiFieldQueryParser(Lucene.Net.Util.Version.LUCENE_30, array, analyzer);
         }
 
         /// <summary>
