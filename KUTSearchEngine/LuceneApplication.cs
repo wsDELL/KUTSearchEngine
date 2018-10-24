@@ -25,7 +25,8 @@ namespace KUTSearchEngine
         MultiFieldQueryParser parser;
         Similarity similarity;
         WordnetSynset wordnetSynset =new WordnetSynset();
-        SpellChecker.Net.Search.Spell.SpellChecker spellChecker;
+      
+
 
         const Lucene.Net.Util.Version VERSION = Lucene.Net.Util.Version.LUCENE_30;
 
@@ -60,22 +61,34 @@ namespace KUTSearchEngine
         {
             Lucene.Net.Documents.Document doc = new Document();
             Field id = new Field("id", text[0], Field.Store.YES, Field.Index.ANALYZED, Field.TermVector.WITH_OFFSETS);
-            doc.Add(id);
             Field title = new Field("title", text[1], Field.Store.YES, Field.Index.ANALYZED, Field.TermVector.WITH_OFFSETS);
-            doc.Add(title);
             Field author = new Field("author", text[2], Field.Store.YES, Field.Index.ANALYZED, Field.TermVector.WITH_OFFSETS);
-            doc.Add(author);
             Field bibliographic = new Field("bibliographic", text[3], Field.Store.YES, Field.Index.ANALYZED, Field.TermVector.WITH_OFFSETS);
-            doc.Add(bibliographic);
             Field abstractContent = new Field("abstract", text[4], Field.Store.YES, Field.Index.ANALYZED, Field.TermVector.WITH_OFFSETS);
-            doc.Add(abstractContent);
             Field firstSentence = new Field("firstSentence", text[5], Field.Store.YES, Field.Index.ANALYZED, Field.TermVector.WITH_OFFSETS);
+            doc.Add(id);
+            doc.Add(title);
+            doc.Add(author);
+            doc.Add(bibliographic);
+            doc.Add(abstractContent);
             doc.Add(firstSentence);
-            title.Boost=2.0f;
-            author.Boost = 2.0f;
             writer.AddDocument(doc);
+            
         }
 
+        public void A()
+        {
+            writer.
+
+        }
+        /*
+        public void boostModify(float titleBoost,float authorBoost)
+        {
+            writer.g
+            doc.GetField("title").Boost = titleBoost;
+            doc.GetField("author").Boost = authorBoost;
+            
+        }*/
         /// <summary>
         /// Flushes the buffer and closes the index
         /// </summary>
@@ -96,10 +109,6 @@ namespace KUTSearchEngine
             searcher = new IndexSearcher(luceneIndexDirectory);
         }
 
-        public void CreateSpellChecker()
-        {
-            spellChecker = new SpellChecker.Net.Search.Spell.SpellChecker(luceneIndexDirectory);
-        }
 
         public void createParser(string [] fileChoice)
         {
@@ -128,20 +137,13 @@ namespace KUTSearchEngine
             searcher.Similarity = similarity;
             return results;
         }
-<<<<<<< HEAD
-
-        public SpellChecker SpellChecker()
-        {
-
-        }
-
-=======
+        
         /// <summary>
         /// Create a thesaurus dictionary for storing the synonym of query
         /// </summary>
         /// <param name="infoqueryExpansionTerms"></param>
         /// <returns></returns>
->>>>>>> 85e5219737b5fc37d698660606800f828e5ed347
+
         public Dictionary<string, string[]> CreateThesaurus(string[] infoqueryExpansionTerms)
         {
             Dictionary<string, string[]> thesaurus = new Dictionary<string, string[]>();
@@ -232,12 +234,6 @@ namespace KUTSearchEngine
             searcher.Dispose();
         }
 
-        public SpellChecker GetSpellChecker
-        {
-            get
-            {
-                return spellChecker;
-            }
-        }
+
     }
 }

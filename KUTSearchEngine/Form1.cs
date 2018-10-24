@@ -93,7 +93,6 @@ namespace KUTSearchEngine
             double time = timeSpan.TotalSeconds;
             time = Math.Round(time, 4);
             toolStripStatusLabel1.Text ="Indexing time: "+ time + " s";
-            label3.Text = "All documents added.";
             myLuceneApp.CleanUpIndexer();
         }
 
@@ -118,15 +117,7 @@ namespace KUTSearchEngine
             }
 
 
-            file.Add("abstract");
-            if (checkBox2.Checked)
-            {
-                file.Add("title");
-            }
-            if (checkBox3.Checked)
-            {
-                file.Add("author");
-            }
+
 
 
             string[] fileChoice = file.ToArray();
@@ -141,8 +132,11 @@ namespace KUTSearchEngine
 
             string expandedQueryItems = "";
             OptionOfQeryExpansionAndWeighterQueries(expandedQueryItems);
-
-
+            /*
+            float titleBoost = (float)numericUpDown1.Value;
+            float authorBoost = (float)numericUpDown2.Value;
+            myLuceneApp.boostModify(titleBoost, authorBoost);
+            */
             stopwatch.Start();
             Lucene.Net.Search.Query query = myLuceneApp.InfoParser(infoNeed);
             string queryText = query.ToString();
@@ -158,7 +152,7 @@ namespace KUTSearchEngine
             int rank = 0;
 
             pageDivded.DtSource.Columns.Add("list");
-
+            label4.Text = "Result: " + result.TotalHits.ToString();
             foreach (Lucene.Net.Search.ScoreDoc scoreDoc in result.ScoreDocs)
             {
                 rank++;
@@ -168,9 +162,11 @@ namespace KUTSearchEngine
                 string bbibliographic = "Bibliographic: " + doc.Get("bibliographic").ToString();
                 string textAbstract = doc.Get("firstSentence").ToString();
                 string scoing ="Scoring"+ scoreDoc.Score.ToString();
-                string row = title + "\r\n" + author + "\r\n" + bbibliographic + "\r\n" + textAbstract+"\r\n"+scoing;
+                
+                string row="Rank:"+rank+"\r\n"+ title + "\r\n" + author + "\r\n" + bbibliographic + "\r\n" + textAbstract+"\r\n"+scoing;
 
                 pageDivded.DtSource.Rows.Add(row);
+                
             }
             if (pageDivded.DtSource.Rows.Count <= 0)
             {
@@ -373,38 +369,15 @@ namespace KUTSearchEngine
             }
         }
 
-<<<<<<< HEAD
-        private void radioButton3_CheckedChanged(object sender, EventArgs e)
+        private void checkBox3_CheckedChanged(object sender, EventArgs e)
         {
 
         }
-        public bool IsEnabled { get; set; }
 
-        public void SpellCheckExample()
-        {
-            StackPanel myStackPanel = new StackPanel();
-
-            //Create TextBox
-            TextBox myTextBox = new TextBox();
-            myTextBox.Width = 200;
-
-            // Enable spellchecking on the TextBox.
-            myTextBox.SpellCheck.IsEnabled = true;
-
-            // Alternatively, the SetIsEnabled method could be used
-            // to enable or disable spell checking like this:
-            // SpellCheck.SetIsEnabled(myTextBox, true);
-
-            myStackPanel.Children.Add(myTextBox);
-            this.Content = myStackPanel;
-        }
-
-        private void InfoNeedInput_TextChanged_1(object sender, EventArgs e)
+        private void Form1_Load(object sender, EventArgs e)
         {
 
         }
-=======
->>>>>>> 85e5219737b5fc37d698660606800f828e5ed347
     }
 
 }
