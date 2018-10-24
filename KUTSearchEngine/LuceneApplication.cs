@@ -13,6 +13,7 @@ using Lucene.Net.Analysis.Snowball; // for snowball analyser
 using Syn.WordNet;
 
 
+
 namespace KUTSearchEngine
 {
     class LuceneAdvancedSearchApplication: DefaultSimilarity
@@ -24,6 +25,7 @@ namespace KUTSearchEngine
         MultiFieldQueryParser parser;
         Similarity similarity;
         WordnetSynset wordnetSynset =new WordnetSynset();
+        SpellChecker.Net.Search.Spell.SpellChecker spellChecker;
 
         const Lucene.Net.Util.Version VERSION = Lucene.Net.Util.Version.LUCENE_30;
         public LuceneAdvancedSearchApplication()
@@ -86,6 +88,10 @@ namespace KUTSearchEngine
             searcher = new IndexSearcher(luceneIndexDirectory);
         }
 
+        public void CreateSpellChecker()
+        {
+            spellChecker = new SpellChecker.Net.Search.Spell.SpellChecker(luceneIndexDirectory);
+        }
 
         public void createParser(string [] fileChoice)
         {
@@ -108,6 +114,11 @@ namespace KUTSearchEngine
             TopDocs results = searcher.Search(query, 1400);
             searcher.Similarity = similarity;
             return results;
+        }
+
+        public SpellChecker SpellChecker()
+        {
+
         }
 
         public Dictionary<string, string[]> CreateThesaurus(string[] infoqueryExpansionTerms)
@@ -181,7 +192,7 @@ namespace KUTSearchEngine
                 return searcher;
             }
         }
-
+        
         /// <summary>
         /// Closes the index after searching
         /// </summary>
@@ -190,6 +201,12 @@ namespace KUTSearchEngine
             searcher.Dispose();
         }
 
-
+        public SpellChecker GetSpellChecker
+        {
+            get
+            {
+                return spellChecker;
+            }
+        }
     }
 }

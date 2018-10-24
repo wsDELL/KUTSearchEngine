@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using System.Diagnostics;
+using System.Windows;
+using System.Runtime.InteropServices;
+
 
 
 namespace KUTSearchEngine
@@ -26,8 +29,6 @@ namespace KUTSearchEngine
         private List<string> file = new List<string>();
         private Dictionary<string, string[]> thesaurus = new Dictionary<string, string[]>();
         private string wordnetPath;
-
-
 
         public Form1()
         {
@@ -505,6 +506,31 @@ namespace KUTSearchEngine
         }
 
         private void radioButton3_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+        public bool IsEnabled { get; set; }
+
+        public void SpellCheckExample()
+        {
+            StackPanel myStackPanel = new StackPanel();
+
+            //Create TextBox
+            TextBox myTextBox = new TextBox();
+            myTextBox.Width = 200;
+
+            // Enable spellchecking on the TextBox.
+            myTextBox.SpellCheck.IsEnabled = true;
+
+            // Alternatively, the SetIsEnabled method could be used
+            // to enable or disable spell checking like this:
+            // SpellCheck.SetIsEnabled(myTextBox, true);
+
+            myStackPanel.Children.Add(myTextBox);
+            this.Content = myStackPanel;
+        }
+
+        private void InfoNeedInput_TextChanged_1(object sender, EventArgs e)
         {
 
         }

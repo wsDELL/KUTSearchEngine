@@ -391,6 +391,7 @@
             this.InfoNeedInput.Name = "InfoNeedInput";
             this.InfoNeedInput.Size = new System.Drawing.Size(639, 30);
             this.InfoNeedInput.TabIndex = 9;
+            this.InfoNeedInput.TextChanged += new System.EventHandler(this.InfoNeedInput_TextChanged_1);
             // 
             // label2
             // 
@@ -554,7 +555,6 @@
             this.label6.Size = new System.Drawing.Size(34, 16);
             this.label6.TabIndex = 32;
             this.label6.Text = "page";
-            this.label6.Click += new System.EventHandler(this.label6_Click);
             // 
             // textBox3
             // 
