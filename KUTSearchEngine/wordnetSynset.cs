@@ -19,17 +19,22 @@ namespace KUTSearchEngine
             
         }
 
-
+        /// <summary>
+        /// create a wordnet engine 
+        /// </summary>
         public void CreateWordnetEngine()
         {
             directory = GlobalData.wordnetDBPath;
             wordnet.LoadFromDirectory(directory);
         }
+
+        /// <summary>
+        /// Get the synonym set of the input word
+        /// </summary>
+        /// <param name="word">The word which is used for search its synonym</param>
+        /// <returns> return all synonyms of the parameter "word" in an array </returns>
         public string[] GetSynnetList(string word)
         {
-
-
-
             var synSetList = wordnet.GetSynSets(word);
             int listNumber = synSetList.Count;
             string[] words = new[] { "" };
@@ -37,7 +42,6 @@ namespace KUTSearchEngine
             {
                 words[0] = word;
                 return words;
-
             }
             else
             {

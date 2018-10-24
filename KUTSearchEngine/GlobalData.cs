@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace KUTSearchEngine
 {
+    /// <summary>
+    /// Thiis class is used to store global data between different class.
+    /// </summary>
     class GlobalData
     {
         public static string soureCollectionPath;
