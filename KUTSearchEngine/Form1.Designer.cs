@@ -112,6 +112,7 @@
             this.InfoNeedInput.Name = "InfoNeedInput";
             this.InfoNeedInput.Size = new System.Drawing.Size(639, 30);
             this.InfoNeedInput.TabIndex = 9;
+            this.InfoNeedInput.TextChanged += new System.EventHandler(this.InfoNeedInput_TextChanged_1);
             // 
             // label5
             // 
