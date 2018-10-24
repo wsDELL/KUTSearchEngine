@@ -26,6 +26,7 @@ namespace KUTSearchEngine
         WordnetSynset wordnetSynset =new WordnetSynset();
 
         const Lucene.Net.Util.Version VERSION = Lucene.Net.Util.Version.LUCENE_30;
+
         public LuceneAdvancedSearchApplication()
         {
             luceneIndexDirectory = null;
@@ -56,13 +57,20 @@ namespace KUTSearchEngine
         public void IndexText(string[] text)
         {
             Lucene.Net.Documents.Document doc = new Document();
-            
-            doc.Add(new Field("id", text[0], Field.Store.YES, Field.Index.ANALYZED, Field.TermVector.YES));
-            doc.Add(new Field("title", text[1], Field.Store.YES, Field.Index.ANALYZED, Field.TermVector.YES));
-            doc.Add(new Field("author", text[2], Field.Store.YES, Field.Index.ANALYZED, Field.TermVector.YES));
-            doc.Add(new Field("bibliographic", text[3], Field.Store.YES, Field.Index.ANALYZED, Field.TermVector.YES));
-            doc.Add(new Field("abstract", text[4], Field.Store.YES, Field.Index.ANALYZED, Field.TermVector.YES));
-            doc.Add(new Field("firstSentence", text[5], Field.Store.YES, Field.Index.ANALYZED, Field.TermVector.YES)); 
+            Field id = new Field("id", text[0], Field.Store.YES, Field.Index.ANALYZED, Field.TermVector.YES);
+            doc.Add(id);
+            Field title = new Field("title", text[1], Field.Store.YES, Field.Index.ANALYZED, Field.TermVector.YES);
+            doc.Add(title);
+            Field author = new Field("author", text[2], Field.Store.YES, Field.Index.ANALYZED, Field.TermVector.YES);
+            doc.Add(author);
+            Field bibliographic = new Field("bibliographic", text[3], Field.Store.YES, Field.Index.ANALYZED, Field.TermVector.YES);
+            doc.Add(bibliographic);
+            Field abstractContent = new Field("abstract", text[4], Field.Store.YES, Field.Index.ANALYZED, Field.TermVector.YES);
+            doc.Add(abstractContent);
+            Field firstSentence = new Field("firstSentence", text[5], Field.Store.YES, Field.Index.ANALYZED, Field.TermVector.YES);
+            doc.Add(firstSentence);
+            title.Boost=2.0f;
+            author.Boost = 2.0f;
             writer.AddDocument(doc);
         }
 
@@ -93,7 +101,7 @@ namespace KUTSearchEngine
         }
 
         /// <summary>
-        /// Searches the index for the querytext
+        /// Input information need and transform as query object.
         /// </summary>
         /// <param name="querytext">The text to search the index</param>
         public Query InfoParser(string infoNeed)
@@ -102,14 +110,22 @@ namespace KUTSearchEngine
             Query query = parser.Parse(infoNeed);
             return query;
         }
-
+        /// <summary>
+        /// Search the query and return the result
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns></returns>
         public TopDocs SearchText(Query query)
         {
             TopDocs results = searcher.Search(query, 1400);
             searcher.Similarity = similarity;
             return results;
         }
-
+        /// <summary>
+        /// Create a thesaurus dictionary for storing the synonym of query
+        /// </summary>
+        /// <param name="infoqueryExpansionTerms"></param>
+        /// <returns></returns>
         public Dictionary<string, string[]> CreateThesaurus(string[] infoqueryExpansionTerms)
         {
             Dictionary<string, string[]> thesaurus = new Dictionary<string, string[]>();
@@ -118,7 +134,12 @@ namespace KUTSearchEngine
             foreach (string word in infoqueryExpansionTerms)
             {
                 string[] wordExansion= wordnetSynset.GetSynnetList(word);
-                thesaurus.Add(word, wordExansion);
+                if (thesaurus.ContainsKey(word) == true)
+                {
+                    continue;
+                }
+                else { thesaurus.Add(word, wordExansion); }
+                
             }
 
            
@@ -148,7 +169,12 @@ namespace KUTSearchEngine
            
             return expandedQuery;
         }
-
+        /// <summary>
+        /// Expands the query with terms in the thesaurus but weights the original term the highest
+        /// </summary>
+        /// <param name="thesausus"></param>
+        /// <param name="queryExpansionTerms"></param>
+        /// <returns></returns>
         public string GetWeightedExpandedQuery(Dictionary<string, string[]> thesausus, string[] queryExpansionTerms)
         {
             string expandedQuery = "";

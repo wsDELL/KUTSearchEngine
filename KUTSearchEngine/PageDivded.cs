@@ -10,10 +10,10 @@ namespace KUTSearchEngine
 {
     class PageDivded
     {
-        public int pageSize = 10;      //每页记录数
-        public int recordCount = 0;    //总记录数
-        public int pageCount = 0;      //总页数
-        public int currentPage = 0;    //当前页
+        public int pageSize = 10;      //Record number in every page
+        public int recordCount = 0;    //Total number of the record
+        public int pageCount = 0;      //Total number of the page
+        public int currentPage = 0;    //Current page show
         DataTable dtSource = new DataTable();
         DataGridView gridView = new DataGridView();
 
@@ -79,7 +79,10 @@ namespace KUTSearchEngine
                 return gridView;
             }
         }
-
+        /// <summary>
+        /// make sure the begin and end of records in one page
+        /// </summary>
+        /// <returns></returns>
         public DataTable LoadPage()
         {
             if (currentPage < 1) currentPage = 1;
@@ -103,11 +106,11 @@ namespace KUTSearchEngine
             }
             return dtTemp;
         }
-
-        public void DividedPage( )    //str是sql语句
+        /// <summary>
+        /// divide the page base on record count
+        /// </summary>
+        public void DividedPage( )    
         {
-           
-            
             recordCount = dtSource.Rows.Count;
             pageCount = (recordCount / pageSize);
             if ((recordCount % pageSize) > 0)
@@ -115,10 +118,10 @@ namespace KUTSearchEngine
                 pageCount++;
             }
 
-            //默认第一页
+           
             currentPage = 1;
 
-            LoadPage();//调用加载数据的方法
+            LoadPage();
         }
         public string PageNumber()
         {

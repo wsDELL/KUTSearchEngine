@@ -23,7 +23,16 @@ namespace KUTSearchEngine
 
         private void button1_Click(object sender, EventArgs e)
         {
-            this.DialogResult = DialogResult.OK;
+            if (GlobalData.createIndexPath==null || GlobalData.soureCollectionPath==null)
+            {
+                MessageBox.Show("Invalid input!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            else
+            {
+                this.DialogResult = DialogResult.OK;
+            }
+         
         }
         private void Form2_FormClosing(object sender, EventArgs e)
         {
@@ -47,9 +56,7 @@ namespace KUTSearchEngine
         private void browseButton_Click(object sender, EventArgs e)
         {
             openSourceCollectionFileDialog.ShowDialog();
-
             browswShow.Text = openSourceCollectionFileDialog.SelectedPath;
-
             GlobalData.soureCollectionPath = openSourceCollectionFileDialog.SelectedPath;
         }
               
