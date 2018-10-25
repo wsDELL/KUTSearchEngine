@@ -50,6 +50,7 @@ namespace KUTSearchEngine
             writer = new Lucene.Net.Index.IndexWriter(luceneIndexDirectory, analyzer, true, mfl);
             writer.SetSimilarity (similarity);
         }
+        //method to determine the analyzer users choose to use
         public void AnalyzerSelection(string analyzerSelection)
         {
             switch (analyzerSelection)

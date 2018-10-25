@@ -21,6 +21,7 @@ namespace KUTSearchEngine
         private List<string[]> fileContent = new List<string[]>();
         private string indexPath = "";
         private string path = "";
+        //create an instance so that use the method in LuceneAdvancedSearchApplication class 
         private LuceneAdvancedSearchApplication myLuceneApp = new LuceneAdvancedSearchApplication();
         private DataTable dataTable = new DataTable();
         private PageDivded pageDivded = new PageDivded();
@@ -36,6 +37,7 @@ namespace KUTSearchEngine
 
         }
         /// <summary>
+        /// pre-processing
         /// Gain the path of source collection. divide every files in collection by delimeter and store in list
         /// </summary>
         /// <param name="collectionPath"></param>
@@ -51,8 +53,9 @@ namespace KUTSearchEngine
                 if (info.Extension.ToLower() == ".txt")
                 {
                     string content = File.ReadAllText(info.FullName);
-                    
+                    //define the delimiter
                     string[] delimter = { ".T", ".I", ".A", ".B", ".W" };
+                    //store fileds into a list
                     string[] contents = content.Split(delimter, StringSplitOptions.None);
                     string[] newList = new string[6];
                     Array.Copy(contents, 1, newList, 0, 5);
@@ -80,7 +83,7 @@ namespace KUTSearchEngine
 
             indexPath = selectedIndexPath;
             myLuceneApp.CreateIndex(indexPath);
-
+            //record the indexing time using stopwatch
             Stopwatch stopwatch = new Stopwatch();
 
             stopwatch.Start();
@@ -110,6 +113,7 @@ namespace KUTSearchEngine
             infoNeed = InfoNeedInput.Text;
             Stopwatch stopwatch = new Stopwatch();
 
+            //give an error warning when input is null
             if (infoNeed == "")
             {
                 MessageBox.Show("Invalid input!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -121,10 +125,11 @@ namespace KUTSearchEngine
 
 
 
-
+            //take the analyzer selected by users
             string analyzerSelection = comboBox1.SelectedItem.ToString();
             myLuceneApp.AnalyzerSelection(analyzerSelection);
 
+            //make the input "as is" to search 
             myLuceneApp.CreateSearcher();
             if (checkBox1.Checked)
             {
@@ -138,10 +143,12 @@ namespace KUTSearchEngine
           
 
 
-
+            //record searching time
             stopwatch.Start();
+            //parse the information need into final query terms
             Lucene.Net.Search.Query query = myLuceneApp.InfoParser(infoNeed);
             string queryText = query.ToString();
+            //display the final query in textbox
             textBox2.Text = queryText;
             Lucene.Net.Search.TopDocs result = myLuceneApp.SearchText(query);
             stopwatch.Stop();
@@ -155,7 +162,9 @@ namespace KUTSearchEngine
 
 
             pageDivded.DtSource.Columns.Add("list");
+            //display the number of result
             groupBox5.Text = "Result: " + result.TotalHits.ToString();
+            //display the results
             foreach (Lucene.Net.Search.ScoreDoc scoreDoc in result.ScoreDocs)
             {
                 rank++;
@@ -173,6 +182,7 @@ namespace KUTSearchEngine
                 pageDivded.DtSource.Rows.Add(row);
                 
             }
+            //A prompt message pop up when there is no results
             if (pageDivded.DtSource.Rows.Count <= 0)
             {
                 MessageBox.Show("No result", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
