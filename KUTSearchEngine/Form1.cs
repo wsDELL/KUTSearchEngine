@@ -26,9 +26,9 @@ namespace KUTSearchEngine
         private PageDivded pageDivded = new PageDivded();
         private int selectedItemIndex = 0;
         private string infoNeed = "";
-        private List<string> file = new List<string>();
         private Dictionary<string, string[]> thesaurus = new Dictionary<string, string[]>();
         private string wordnetPath;
+
 
         public Form1()
         {
@@ -51,6 +51,7 @@ namespace KUTSearchEngine
                 if (info.Extension.ToLower() == ".txt")
                 {
                     string content = File.ReadAllText(info.FullName);
+                    
                     string[] delimter = { ".T", ".I", ".A", ".B", ".W" };
                     string[] contents = content.Split(delimter, StringSplitOptions.None);
                     string[] newList = new string[6];
@@ -85,7 +86,7 @@ namespace KUTSearchEngine
             stopwatch.Start();
             foreach (var s in fileContent)
             {
-                myLuceneApp.IndexText(s);
+                myLuceneApp.IndexText(s,1.0f,1.0f);
             }
             stopwatch.Stop();
 
@@ -120,8 +121,9 @@ namespace KUTSearchEngine
 
 
 
-            string[] fileChoice = file.ToArray();
-            myLuceneApp.createParser(fileChoice);
+
+            string analyzerSelection = comboBox1.SelectedItem.ToString();
+            myLuceneApp.AnalyzerSelection(analyzerSelection);
 
             myLuceneApp.CreateSearcher();
             if (checkBox1.Checked)
@@ -132,11 +134,11 @@ namespace KUTSearchEngine
 
             string expandedQueryItems = "";
             OptionOfQeryExpansionAndWeighterQueries(expandedQueryItems);
-            /*
-            float titleBoost = (float)numericUpDown1.Value;
-            float authorBoost = (float)numericUpDown2.Value;
-            myLuceneApp.boostModify(titleBoost, authorBoost);
-            */
+            AnalyzerChoice();
+          
+
+
+
             stopwatch.Start();
             Lucene.Net.Search.Query query = myLuceneApp.InfoParser(infoNeed);
             string queryText = query.ToString();
@@ -151,19 +153,22 @@ namespace KUTSearchEngine
             toolStripStatusLabel2.Text = "Searching time: "+time.ToString() + "s";
             int rank = 0;
 
+
             pageDivded.DtSource.Columns.Add("list");
-            label4.Text = "Result: " + result.TotalHits.ToString();
+            groupBox5.Text = "Result: " + result.TotalHits.ToString();
             foreach (Lucene.Net.Search.ScoreDoc scoreDoc in result.ScoreDocs)
             {
                 rank++;
                 Lucene.Net.Documents.Document doc = myLuceneApp.GetSearcher.Doc(scoreDoc.Doc);
+                string ID = "ID" + doc.Get("id").Replace(" ","").ToString();
                 string title = "Title: " + doc.Get("title").ToString();
                 string author = "Author: " + doc.Get("author").ToString();
                 string bbibliographic = "Bibliographic: " + doc.Get("bibliographic").ToString();
                 string textAbstract = doc.Get("firstSentence").ToString();
-                string scoing ="Scoring"+ scoreDoc.Score.ToString();
+              
                 
-                string row="Rank:"+rank+"\r\n"+ title + "\r\n" + author + "\r\n" + bbibliographic + "\r\n" + textAbstract+"\r\n"+scoing;
+                string row="Rank:"+rank+ "\r\n" + title+"\r\n" + author + "\r\n" + bbibliographic + "\r\n" + textAbstract+"\r\n";
+
 
                 pageDivded.DtSource.Rows.Add(row);
                 
@@ -300,7 +305,9 @@ namespace KUTSearchEngine
                         foreach (Lucene.Net.Search.ScoreDoc scoreDoc in result.ScoreDocs)
                         {
                             rank++;
-                            oneLine = string.Format("{0}\tQ0{1,10}\t{2,5}\t{3,15}\t{4,38}", topicID, scoreDoc.Doc.ToString(), rank, scoreDoc.Score.ToString(), gropunumber);
+                            Lucene.Net.Documents.Document doc = myLuceneApp.GetSearcher.Doc(scoreDoc.Doc);
+                            string docID = doc.Get("id").Replace(" ", "").Replace("\n", "").Replace("\r", "").ToString();
+                            oneLine = string.Format("{0}\tQ0\t{1}\t{2}\t{3}\t{4}", topicID, docID, rank, scoreDoc.Score.ToString(), gropunumber);
                             myWritter1.WriteLine(oneLine);
 
                         }
@@ -317,12 +324,14 @@ namespace KUTSearchEngine
                         foreach (Lucene.Net.Search.ScoreDoc scoreDoc in result.ScoreDocs)
                         {
                             rank++;
-                            oneLine = string.Format("{0}\tQ0{1,10}\t{2,5}\t{3,15}\t{4,38}", topicID, scoreDoc.Doc.ToString(), rank, scoreDoc.Score.ToString(), gropunumber);
+                            Lucene.Net.Documents.Document doc = myLuceneApp.GetSearcher.Doc(scoreDoc.Doc);
+                            string docID = doc.Get("id").Replace(" ","").Replace("\n","").Replace("\r","").ToString();
+                            oneLine = string.Format("{0}\tQ0\t{1}\t{2}\t{3}\t{4}", topicID, docID, rank, scoreDoc.Score.ToString(), gropunumber);
                             myWritter2.WriteLine(oneLine);
                         }
                         myWritter2.Flush();
                         myWritter2.Close();
-
+                        //"{0}\tQ0\t{1,10}\t{2,5}\t{3,15}\t{4,38}"
                     }
                 }
 
@@ -336,8 +345,8 @@ namespace KUTSearchEngine
             pageDivded.ClearUpDataTable();
             pageDivded.DtSource.Columns.Clear();
             dataGridView1.Columns.Clear();
-            file.Clear();
             thesaurus.Clear();
+
 
         }
         /// <summary>
@@ -348,25 +357,38 @@ namespace KUTSearchEngine
         {
             wordnetPath = Directory.GetCurrentDirectory() + "\\dict";
             GlobalData.wordnetDBPath = wordnetPath;
-            if (checkBox4.Checked)
-            {
-                string[] queryExpansionTerms = infoNeed.Split(' ');
-                thesaurus = myLuceneApp.CreateThesaurus(queryExpansionTerms);
-                expandedQueryItems = myLuceneApp.GetExpandedQuery(thesaurus, queryExpansionTerms);
-                infoNeed = expandedQueryItems;
-            }
-            else if (checkBox5.Checked && checkBox4.Checked)
+           
+            if (checkBox5.Checked && checkBox4.Checked)
             {
                 string[] queryExpansionTerms = infoNeed.Split(' ');
                 thesaurus = myLuceneApp.CreateThesaurus(queryExpansionTerms);
                 expandedQueryItems = myLuceneApp.GetWeightedExpandedQuery(thesaurus, queryExpansionTerms);
                 infoNeed = expandedQueryItems;
             }
+            else if (checkBox4.Checked)
+            {
+                string[] queryExpansionTerms = infoNeed.Split(' ');
+                thesaurus = myLuceneApp.CreateThesaurus(queryExpansionTerms);
+                expandedQueryItems = myLuceneApp.GetExpandedQuery(thesaurus, queryExpansionTerms);
+                infoNeed = expandedQueryItems;
+            }
             else if (checkBox5.Checked)
             {
-                MessageBox.Show("You only can choose ", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("You neet to select query expansion first. ", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
+        }
+        private void AnalyzerChoice()
+        {
+            float titleBoost = (float)numericUpDown1.Value;
+            float authorBoost = (float)numericUpDown2.Value;
+
+            myLuceneApp.CreateIndex(indexPath);
+            foreach (var s in fileContent)
+            {
+                myLuceneApp.IndexText(s, titleBoost, authorBoost);
+            }
+            myLuceneApp.CleanUpIndexer();
         }
 
         private void checkBox3_CheckedChanged(object sender, EventArgs e)

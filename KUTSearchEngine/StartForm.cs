@@ -34,19 +34,7 @@ namespace KUTSearchEngine
             }
          
         }
-        private void Form2_FormClosing(object sender, EventArgs e)
-        {
-            
-            
-            //Lucene.Net.Documents.Document doc = form1.myLuceneApp.GetSearcher.Doc(scoreDoc.Doc);
-            this.Hide();
-        }
 
-        private void StartForm_Load(object sender, EventArgs e)
-        {
-
-            this.Hide();
-        }
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {

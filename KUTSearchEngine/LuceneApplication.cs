@@ -34,9 +34,7 @@ namespace KUTSearchEngine
         {
             luceneIndexDirectory = null;
             writer = null;
-            //analyzer = new Lucene.Net.Analysis.SimpleAnalyzer();
-            //analyzer = new Lucene.Net.Analysis.Standard.StandardAnalyzer(VERSION);
-            analyzer = new Lucene.Net.Analysis.Snowball.SnowballAnalyzer(VERSION, "English");           
+            analyzer = new SimpleAnalyzer();
             similarity = new Newsimilarity();
 
         }
@@ -52,43 +50,54 @@ namespace KUTSearchEngine
             writer = new Lucene.Net.Index.IndexWriter(luceneIndexDirectory, analyzer, true, mfl);
             writer.SetSimilarity (similarity);
         }
+        public void AnalyzerSelection(string analyzerSelection)
+        {
+            switch (analyzerSelection)
+            {
+                case "Simple Analyzer": analyzer = new Lucene.Net.Analysis.SimpleAnalyzer();
+                    break;
+                case "Standard Analyzer": analyzer = new Lucene.Net.Analysis.Standard.StandardAnalyzer(VERSION);
+                    break;
+                case "Snowball Analyzer":analyzer = new Lucene.Net.Analysis.Snowball.SnowballAnalyzer(VERSION, "English");
+                    break;
+                case "Keyword Analyzer":analyzer = new Lucene.Net.Analysis.KeywordAnalyzer();
+                    break;
+                case "Stop Analyzer":analyzer = new Lucene.Net.Analysis.StopAnalyzer(VERSION);
+                    break;
+                case "Whitespace Analyzer":analyzer = new Lucene.Net.Analysis.WhitespaceAnalyzer();
+                    break;
+                default:analyzer = new Lucene.Net.Analysis.Standard.StandardAnalyzer(VERSION);
+                    break;
+
+            }
+        }
 
         /// <summary>
         /// Indexes a given string into the index
         /// </summary>
         /// <param name="text">The text to index</param>
-        public void IndexText(string[] text)
+        public void IndexText(string[] text, float titleBoost, float authorBoost)
         {
+            
             Lucene.Net.Documents.Document doc = new Document();
-            Field id = new Field("id", text[0], Field.Store.YES, Field.Index.ANALYZED, Field.TermVector.WITH_OFFSETS);
-            Field title = new Field("title", text[1], Field.Store.YES, Field.Index.ANALYZED, Field.TermVector.WITH_OFFSETS);
-            Field author = new Field("author", text[2], Field.Store.YES, Field.Index.ANALYZED, Field.TermVector.WITH_OFFSETS);
-            Field bibliographic = new Field("bibliographic", text[3], Field.Store.YES, Field.Index.ANALYZED, Field.TermVector.WITH_OFFSETS);
-            Field abstractContent = new Field("abstract", text[4], Field.Store.YES, Field.Index.ANALYZED, Field.TermVector.WITH_OFFSETS);
-            Field firstSentence = new Field("firstSentence", text[5], Field.Store.YES, Field.Index.ANALYZED, Field.TermVector.WITH_OFFSETS);
+            Field id = new Field("id", text[0], Field.Store.YES, Field.Index.ANALYZED, Field.TermVector.YES);
+            Field title = new Field("title", text[1], Field.Store.YES, Field.Index.ANALYZED, Field.TermVector.YES);
+            Field author = new Field("author", text[2], Field.Store.YES, Field.Index.ANALYZED, Field.TermVector.YES);
+            Field bibliographic = new Field("bibliographic", text[3], Field.Store.YES, Field.Index.ANALYZED, Field.TermVector.YES);
+            Field abstractContent = new Field("abstract", text[4], Field.Store.YES, Field.Index.ANALYZED, Field.TermVector.YES);
+            Field firstSentence = new Field("firstSentence", text[5], Field.Store.YES, Field.Index.ANALYZED, Field.TermVector.YES);
             doc.Add(id);
             doc.Add(title);
             doc.Add(author);
             doc.Add(bibliographic);
             doc.Add(abstractContent);
             doc.Add(firstSentence);
+            title.Boost = titleBoost;
+            author.Boost = authorBoost;
             writer.AddDocument(doc);
             
         }
 
-        public void A()
-        {
-            writer.
-
-        }
-        /*
-        public void boostModify(float titleBoost,float authorBoost)
-        {
-            writer.g
-            doc.GetField("title").Boost = titleBoost;
-            doc.GetField("author").Boost = authorBoost;
-            
-        }*/
         /// <summary>
         /// Flushes the buffer and closes the index
         /// </summary>
@@ -110,11 +119,6 @@ namespace KUTSearchEngine
         }
 
 
-        public void createParser(string [] fileChoice)
-        {
-            string[] array = new string[] { "title", "author", "bibliographic", "abstract" };
-            parser = new MultiFieldQueryParser(Lucene.Net.Util.Version.LUCENE_30, array, analyzer);
-        }
 
         /// <summary>
         /// Input information need and transform as query object.
@@ -122,6 +126,8 @@ namespace KUTSearchEngine
         /// <param name="querytext">The text to search the index</param>
         public Query InfoParser(string infoNeed)
         {
+            string[] fields = new string[] { "title", "author", "bibliographic", "abstract" };
+            parser = new MultiFieldQueryParser(Lucene.Net.Util.Version.LUCENE_30, fields, analyzer);
             infoNeed = infoNeed.ToLower();
             Query query = parser.Parse(infoNeed);
             return query;
@@ -133,7 +139,8 @@ namespace KUTSearchEngine
         /// <returns></returns>
         public TopDocs SearchText(Query query)
         {
-            TopDocs results = searcher.Search(query, 1400);
+   
+            TopDocs results = searcher.Search(query,1400);
             searcher.Similarity = similarity;
             return results;
         }
@@ -159,9 +166,6 @@ namespace KUTSearchEngine
                 else { thesaurus.Add(word, wordExansion); }
                 
             }
-
-           
-
             return thesaurus;
         }
         /// <summary>

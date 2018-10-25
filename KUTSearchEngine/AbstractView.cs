@@ -18,9 +18,5 @@ namespace KUTSearchEngine
             textBox1.Text = GlobalData.abstractContent;
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-           
-        }
     }
 }
